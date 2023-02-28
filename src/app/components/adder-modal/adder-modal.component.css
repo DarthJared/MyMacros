@@ -1,0 +1,18 @@
+#background {
+    background-color: #00000000;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+#foreground {
+    background-color: #FFFFFF;
+    border: solid 1px #555;
+    border-radius: 20px;
+    width: 360px;
+    margin-top: 100px;
+    margin-left: calc(50% - 200px);
+    padding: 20px;
+}

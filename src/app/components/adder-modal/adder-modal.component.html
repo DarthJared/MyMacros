@@ -1,0 +1,16 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div class="modal-title">Add Meal</div>
+        <div class="modal-content">
+            <div id="meal-selector">
+                <label for="meal-select">Meal:</label>
+                <select name="meal-select" id="meal-select">
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snack">Snack</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+#todays-goals-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px;
+}
+
+.goal-item {
+    margin: 10px;
+}
+
+.goal-item-label {
+    display: inline-block;
+    width: 100px;
+}
+
+.goal-item-input {
+    width: 40px;
+}
