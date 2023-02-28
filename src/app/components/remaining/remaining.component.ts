@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'remaining',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./remaining.component.css']
 })
 export class RemainingComponent {
+  @Input() calories: number = 0;
+  @Input() carbs: number = 0;
+  @Input() protein: number = 0;
 }

@@ -1,0 +1,13 @@
+<div>
+    <div *ngIf="food == null">No food entered</div>
+    <div *ngIf="food != null">
+        <div *ngFor="let meal of food.meals">
+            <div class="meal-name">
+                {{meal.name}}
+            </div>
+            <div class="food-item" *ngFor="let food of meal.food">
+                <strong>{{food.name}} ({{food.servingSize}}):</strong> {{food.calories}} calories, {{food.carbs}} carbs (g), {{food.protein}} protein (g)
+            </div>
+        </div>
+    </div>
+</div>

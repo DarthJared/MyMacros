@@ -1,0 +1,27 @@
+#background {
+    background-color: #00000000;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+#foreground {
+    position: absolute;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    width: 220px;
+    right: 20px;
+    bottom: 85px;
+}
+
+.adder-option {
+    padding: 10px;
+    border-radius: 20px;
+    text-align: right;
+}
+
+.adder-option:hover {
+    background-color: #CCCCCC;
+}

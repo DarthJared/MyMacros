@@ -1,0 +1,14 @@
+#remaining-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 20px;
+}
+
+.remaining-item {
+    margin: 10px;
+}
+
+.remaining-label {
+    display: inline-block;
+    width: 100px;
+}

@@ -1,0 +1,35 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div class="modal-title">Add A New Food</div>
+        <div class="modal-content">
+            <div class="food-field">
+                <label for="name" class="input-label">Name:</label>
+                <input type="text" id="name" name="name" [(ngModel)]="name">
+            </div>
+            <div class="food-field">
+                <label for="serving-size" class="input-label">Serving Size:</label>
+                <input type="text" id="serving-size" name="serving-size" [(ngModel)]="servingSize">
+            </div>
+            <div class="food-field">
+                <label for="calories" class="input-label">Calories:</label>
+                <input type="number" id="calories" name="calories" [(ngModel)]="calories" class="food-num">
+            </div>
+            <div class="food-field">
+                <label for="carbs" class="input-label">Carbs (g):</label>
+                <input type="number" id="carbs" name="carbs" [(ngModel)]="carbs" class="food-num">
+            </div>
+            <div class="food-field">
+                <label for="protein" class="input-label">Protein (g):</label>
+                <input type="number" id="protein" name="protein" [(ngModel)]="protein" class="food-num">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <div class="action-button" (click)="addFood()">
+                <button>Add Food</button>
+            </div>
+            <div class="action-button">
+                <button (click)="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

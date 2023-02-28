@@ -1,3 +1,9 @@
-<todays-goals id="goals"></todays-goals>
-<add-button id="adder" (add)="displayAdderModal()"></add-button>
-<adder-modal id="adder-modal" *ngIf="adderModalShowing" (close)="hideAdderModal()"></adder-modal>
+<todays-goals id="goals" (goals)="updateGoals($event)" [calories]="caloriesGoal" [carbs]="carbsGoal" [protein]="proteinGoal"></todays-goals>
+<remaining id="remaining" [calories]="caloriesLeft" [carbs]="carbsLeft" [protein]="proteinLeft"></remaining>
+
+<today-food id="today-food" [food]="todaysMeals"></today-food>
+
+<add-button id="adder" (add)="displayAdderChooser()"></add-button>
+<adder-modal id="adder-modal" *ngIf="adderModalShowing" (close)="hideAdderModal()" (start)="startMeal($event)"></adder-modal>
+<adder-chooser id="adder-chooser" *ngIf="adderChooserShowing" (close)="hideAdderChooser()" (meal)="displayAdderModal()" (food)="displayFood()" [mealExists]="mealExists"></adder-chooser>
+<food-adder id="food-adder" *ngIf="adderFoodShowing" (close)="hideFoodAdder()" (food)="addFood($event)"></food-adder>

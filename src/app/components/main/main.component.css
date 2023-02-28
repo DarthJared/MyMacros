@@ -4,6 +4,17 @@
     right: 20px;
 }
 
-/* #adder-modal {
-    
-} */
+#goals {
+    position: fixed;
+    top: 0px;
+    right: 10px;
+    width: 200px;
+    height: 150px;
+}
+
+#remaining {
+    position: fixed;
+    width: 200px;
+    top: 150px;
+    right: 10px;
+}

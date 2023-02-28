@@ -17,16 +17,25 @@
     padding: 20px;
 }
 
-#meal-select-label {
-    margin-right: 15px;
-}
-
 .modal-title {
     width: 100%;
     text-align: center;
     font-size: 22px;
     font-weight: bold;
     margin-bottom: 20px;
+}
+
+.input-label {
+    display: inline-block;
+    width: 100px;
+}
+
+.food-num {
+    width: 50px;
+}
+
+.food-field {
+    margin-bottom: 10px;
 }
 
 .action-button {

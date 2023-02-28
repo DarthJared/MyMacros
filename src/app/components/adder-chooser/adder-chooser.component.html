@@ -1,0 +1,10 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div *ngIf="mealExists" class="adder-option" (click)="addFood()">
+            Add a Food to Current Meal
+        </div>
+        <div class="adder-option" (click)="startMeal()">
+            Start a New Meal
+        </div>
+    </div>
+</div>

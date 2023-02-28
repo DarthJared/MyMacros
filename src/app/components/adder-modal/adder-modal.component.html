@@ -1,15 +1,23 @@
 <div id="background" (click)="closeModal()">
     <div id="foreground" (click)="doNothing($event)">
-        <div class="modal-title">Add Meal</div>
+        <div class="modal-title">Start New Meal</div>
         <div class="modal-content">
             <div id="meal-selector">
-                <label for="meal-select">Meal:</label>
-                <select name="meal-select" id="meal-select">
-                    <option value="breakfast">Breakfast</option>
-                    <option value="lunch">Lunch</option>
-                    <option value="dinner">Dinner</option>
-                    <option value="snack">Snack</option>
+                <label for="meal-select" id="meal-select-label">Meal:</label>
+                <select name="meal-select" id="meal-select" [(ngModel)]="mealSelected">
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Snack">Snack</option>
                 </select>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <div class="action-button" (click)="startMeal()">
+                <button>Start Meal</button>
+            </div>
+            <div class="action-button">
+                <button (click)="closeModal()">Cancel</button>
             </div>
         </div>
     </div>

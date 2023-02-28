@@ -7,6 +7,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class AdderModalComponent {
     @Output() close = new EventEmitter<string>();
+    @Output() start = new EventEmitter<string>();
+    mealSelected: string = 'Breakfast';
 
     closeModal() {
         this.close.emit('close');
@@ -14,5 +16,9 @@ export class AdderModalComponent {
 
     doNothing(event: any) {
         event.stopPropagation();
+    }
+
+    startMeal() {
+        this.start.emit(this.mealSelected);
     }
 }
