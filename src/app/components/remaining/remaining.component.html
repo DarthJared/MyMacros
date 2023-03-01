@@ -1,12 +1,12 @@
-<div>
+<div id="remaining">
     <div id="remaining-title">Remaining</div>
     <div id="calories" class="remaining-item">
-        <span class="remaining-label">Calories: </span>{{calories}}
+        <span class="remaining-label">Calories: </span>{{calories | number : '1.2-2'}}
     </div>
     <div id="carbs" class="remaining-item">
-        <span class="remaining-label">Net Carbs (g): </span>{{carbs}}
+        <span class="remaining-label">Net Carbs (g): </span>{{carbs | number : '1.2-2'}}
     </div>
     <div id="protein" class="remaining-item">
-        <span class="remaining-label">Protein (g): </span>{{protein}}
+        <span class="remaining-label">Protein (g): </span>{{protein | number : '1.2-2'}}
     </div>
 </div>

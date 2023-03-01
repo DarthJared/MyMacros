@@ -1,7 +1,9 @@
 #remaining-title {
     font-weight: bold;
     font-size: 24px;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .remaining-item {
@@ -10,5 +12,9 @@
 
 .remaining-label {
     display: inline-block;
-    width: 100px;
+    width: 120px;
+}
+
+#remaining {
+    padding-bottom: 20px;
 }

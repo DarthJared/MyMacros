@@ -9,19 +9,20 @@
 
 #foreground {
     position: absolute;
-    background-color: #FFFFFF;
-    border-radius: 20px;
+    background-color: #333333;
+    border: solid 1px #444444;
+    box-sizing: border-box;
+    box-shadow: 2px 5px #0003;
     width: 220px;
     right: 20px;
-    bottom: 85px;
+    bottom: 95px;
 }
 
 .adder-option {
     padding: 10px;
-    border-radius: 20px;
     text-align: right;
 }
 
 .adder-option:hover {
-    background-color: #CCCCCC;
+    background-color: #222222;
 }

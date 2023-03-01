@@ -1,5 +1,5 @@
 #background {
-    background-color: #00000000;
+    background-color: #00000077;
     position: absolute;
     left: 0px;
     right: 0px;
@@ -8,9 +8,10 @@
 }
 
 #foreground {
-    background-color: #FFFFFF;
-    border: solid 1px #555;
-    border-radius: 20px;
+    background-color: #333333;
+    border: solid 1px #444444;
+    box-sizing: border-box;
+    box-shadow: 2px 5px #0003;
     width: 260px;
     margin-top: 100px;
     margin-left: calc(50% - 150px);

@@ -6,15 +6,22 @@
 
 #goals {
     position: fixed;
-    top: 0px;
+    top: 55px;
     right: 10px;
-    width: 200px;
-    height: 150px;
+    width: 220px;
+    background-color: #333333;
+    border: solid 1px #444444;
+    box-sizing: border-box;
+    box-shadow: 2px 5px #0003;
 }
 
 #remaining {
     position: fixed;
-    width: 200px;
-    top: 150px;
+    width: 220px;
+    top: 250px;
     right: 10px;
+    background-color: #333333;
+    border: solid 1px #444444;
+    box-sizing: border-box;
+    box-shadow: 2px 5px #0003;
 }

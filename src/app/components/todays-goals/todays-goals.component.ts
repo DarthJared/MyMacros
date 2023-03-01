@@ -23,6 +23,6 @@ export class TodaysGoalsComponent {
       calories: this.caloriesGoal,
       carbs: this.carbsGoal,
       protein: this.proteinGoal
-    })
+    });
   }
 }

@@ -43,6 +43,9 @@ export class MainComponent {
         let today = new Date();
 
         let todaysMeals = this.storageService.getTodaysMeals(today.toDateString())
+        if (todaysMeals.length > 0) {
+            this.mealExists = true;
+        }
         
         this.todaysMeals = {
             date: today.toDateString(),
