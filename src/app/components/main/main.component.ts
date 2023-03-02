@@ -201,7 +201,7 @@ export class MainComponent {
 
     removeMeal(mealIndex: number) {
         this.confirmModalButtonText = 'Remove';
-        this.confirmModalMessage = 'Are you sure you want to remove this food?';
+        this.confirmModalMessage = 'Are you sure you want to remove this meal?';
         this.confirmModalActionKey = 'removeMeal';
         this.confirmModalContext = mealIndex;
         this.confirmModalShowing = true;
@@ -209,7 +209,7 @@ export class MainComponent {
 
     removeFood(foodInfo: { mealIndex: number, foodIndex: number }) {
         this.confirmModalButtonText = 'Remove';
-        this.confirmModalMessage = 'Are you sure you want to remove this meal?';
+        this.confirmModalMessage = 'Are you sure you want to remove this food?';
         this.confirmModalActionKey = 'removeFood';
         this.confirmModalContext = foodInfo;
         this.confirmModalShowing = true;
