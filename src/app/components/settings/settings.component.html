@@ -1,0 +1,126 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div class="modal-title">Settings</div>
+        <div class="modal-content">
+            <div id="settings-tabs-header">
+                <div class="tab" [ngClass]="{ 'active-tab': activeTab == 'Defaults' }" (click)="setActiveTab('Defaults')">
+                    Defaults
+                </div>
+                <div class="tab" [ngClass]="{ 'active-tab': activeTab == 'Macros' }" (click)="setActiveTab('Macros')">
+                    Macros
+                </div>
+                <div class="tab" [ngClass]="{ 'active-tab': activeTab == 'Other' }" (click)="setActiveTab('Other')">
+                    Other
+                </div>
+            </div>
+            <div class="tab-content" *ngIf="activeTab == 'Defaults'">
+                <table id="defaults-table">
+                    <tr>
+                        <th>Day</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Sunday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Monday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Tuesday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Wednesday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Thursday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Friday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.protein">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="weekday-label">Saturday</td>
+                        <td class="goal-cell calories-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.calories">
+                        </td>
+                        <td class="goal-cell carbs-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.carbs">
+                        </td>
+                        <td class="goal-cell protein-cell">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.protein">
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal-actions">
+                    <div class="action-button" (click)="saveGoals()">
+                        <button>Save Goals</button>
+                    </div>
+                    <div class="action-button">
+                        <button (click)="closeModal()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" *ngIf="activeTab == 'Macros'">
+                Which Macros do you want to track?
+            </div>
+            <div class="tab-content" *ngIf="activeTab == 'Other'">
+                Other settings
+            </div>
+        </div>        
+    </div>
+</div>

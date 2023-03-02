@@ -12,15 +12,11 @@
     border: solid 1px #444444;
     box-sizing: border-box;
     box-shadow: 2px 5px #0003;
-    width: 260px;
+    width: 276px;
     margin-top: 100px;
-    margin-left: calc(50% - 150px);
+    margin-left: calc(50% - 138px);
     padding: 20px;
     text-align: center;
-}
-
-#meal-select-label {
-    padding: 10px;
 }
 
 .modal-title {
@@ -35,4 +31,13 @@
     display: inline-block;
     margin-right: 10px;
     margin-top: 10px;
+}
+
+#goal-input {
+    width: 50px;
+}
+
+#goal-label {
+    display: inline-block;
+    padding: 10px;
 }

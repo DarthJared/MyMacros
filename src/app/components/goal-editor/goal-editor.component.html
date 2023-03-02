@@ -1,0 +1,17 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div class="modal-title">Today's {{goalName}} Goal</div>
+        <div class="modal-content">
+            <label for="goal-input" id="goal-label">{{goalName}}: </label>
+            <input type="number" name="goal-input" id="goal-input" [(ngModel)]="currentAmount">
+        </div>
+        <div class="modal-actions">
+            <div class="action-button" (click)="updateGoal()">
+                <button>Update Goal</button>
+            </div>
+            <div class="action-button">
+                <button (click)="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

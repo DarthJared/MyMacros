@@ -1,10 +1,61 @@
-<header id="header"></header>
-<todays-goals id="goals" (goals)="updateGoals($event)" [calories]="caloriesGoal" [carbs]="carbsGoal" [protein]="proteinGoal"></todays-goals>
-<remaining id="remaining" [calories]="caloriesLeft" [carbs]="carbsLeft" [protein]="proteinLeft"></remaining>
+<header 
+    id="header" 
+    (settings)="openSettings()">
+</header>
 
-<today-food id="today-food" [food]="todaysMeals"></today-food>
+<today-food 
+    id="today-food" 
+    [food]="todaysMeals">
+</today-food>
 
-<add-button id="adder" (add)="displayAdderChooser()"></add-button>
-<adder-modal id="adder-modal" *ngIf="adderModalShowing" (close)="hideAdderModal()" (start)="startMeal($event)"></adder-modal>
-<adder-chooser id="adder-chooser" *ngIf="adderChooserShowing" (close)="hideAdderChooser()" (meal)="displayAdderModal()" (food)="displayFood()" [mealExists]="mealExists"></adder-chooser>
-<food-adder id="food-adder" *ngIf="adderFoodShowing" (close)="hideFoodAdder()" (food)="addFood($event)"></food-adder>
+<add-button 
+    id="adder" 
+    (add)="displayAdderChooser()">
+</add-button>
+<adder-modal 
+    id="adder-modal" 
+    *ngIf="adderModalShowing" 
+    (close)="closeAllModals()" 
+    (start)="startMeal($event)">
+</adder-modal>
+<adder-chooser 
+    id="adder-chooser" 
+    *ngIf="adderChooserShowing" 
+    (close)="closeAllModals()" 
+    (meal)="displayAdderModal()" 
+    (food)="displayFood()" 
+    [mealExists]="mealExists">
+</adder-chooser>
+<food-adder 
+    id="food-adder" 
+    *ngIf="adderFoodShowing" 
+    (close)="closeAllModals()" 
+    (food)="addFood($event)">
+</food-adder>
+<goal-editor 
+    id="goal-editor" 
+    *ngIf="goalEditorShowing"
+    (close)="closeAllModals()"
+    (updated)="updateGoal($event)"
+    [currentAmount]="goalEditorAmount"
+    [goalName]="goalEditorName">
+</goal-editor>
+<settings
+    id="settings"
+    *ngIf="settingsShowing"
+    (close)="closeAllModals()">
+</settings>
+
+
+<footer 
+    id="footer" 
+    [caloriesGoal]="caloriesGoal" 
+    [carbsGoal]="carbsGoal" 
+    [proteinGoal]="proteinGoal" 
+    [caloriesRemaining]="caloriesLeft" 
+    [carbsRemaining]="carbsLeft" 
+    [proteinRemaining]="proteinLeft"
+    (calories)="editCalories()"
+    (carbs)="editCarbs()"
+    (protein)="editProtein()">
+</footer>

@@ -28,6 +28,12 @@ export class MainComponent {
     adderModalShowing: boolean = false;
     adderChooserShowing: boolean = false;
     adderFoodShowing: boolean = false;
+    goalEditorShowing: boolean = false;
+    settingsShowing: boolean = false;
+
+    goalEditorAmount: number = 0;
+    goalEditorName: string = '';
+
     currentMeal: string = '';
     todaysMeals: DaysMeals;
     mealExists: boolean = false;
@@ -53,6 +59,9 @@ export class MainComponent {
         }
 
         let goalInfo = this.storageService.getTodaysGoals(today.toDateString());
+        if (!goalInfo) {
+            goalInfo = this.storageService.getTodaysDefaultGoals();
+        }
 
         this.caloriesGoal = goalInfo.calories;
         this.carbsGoal = goalInfo.carbs;
@@ -107,14 +116,14 @@ export class MainComponent {
 
         this.todaysMeals.meals.push(newMeal)
         this.mealExists = true;
-        this.hideAdderModal();
+        this.closeAllModals();
     }
 
     addFood(food: Food) {
         let lastMealIndex = this.todaysMeals.meals.length - 1;
         this.todaysMeals.meals[lastMealIndex].food.push(food);
 
-        this.hideFoodAdder();
+        this.closeAllModals();
         this.updateRemaining();
 
         this.store();
@@ -122,29 +131,64 @@ export class MainComponent {
         console.log(this.todaysMeals)
     }
 
-    displayAdderModal() {
-        this.hideAdderChooser()
-        this.adderModalShowing = true;
+    closeAllModals() {
+        this.adderModalShowing = false;
+        this.adderChooserShowing = false;
+        this.adderFoodShowing = false;
+        this.goalEditorShowing = false;
+        this.settingsShowing = false;
     }
 
-    hideAdderModal() {
-        this.adderModalShowing = false;
+    displayAdderModal() {
+        this.closeAllModals()
+        this.adderModalShowing = true;
     }
 
     displayAdderChooser() {
         this.adderChooserShowing = true;
     }
 
-    hideAdderChooser() {
-        this.adderChooserShowing = false;
-    }
-
     displayFood() {
-        this.hideAdderChooser()
+        this.closeAllModals()
         this.adderFoodShowing = true;
     }
 
-    hideFoodAdder() {
-        this.adderFoodShowing = false;
+    editCalories() {
+        this.goalEditorAmount = this.caloriesGoal;
+        this.goalEditorName = 'Calories';
+        this.goalEditorShowing = true;
+    }
+
+    editCarbs() {
+        this.goalEditorAmount = this.carbsGoal;
+        this.goalEditorName = 'Carbs';
+        this.goalEditorShowing = true;
+    }
+
+    editProtein() {
+        this.goalEditorAmount = this.proteinGoal;
+        this.goalEditorName = 'Protein';
+        this.goalEditorShowing = true;
+    }
+
+    updateGoal(goalInfo: any) {
+        switch(goalInfo.goalName) {
+            case 'Calories':
+                this.caloriesGoal = goalInfo.goal;
+                break;
+            case 'Carbs':
+                this.carbsGoal = goalInfo.goal;
+                break;
+            case 'Protein':
+                this.proteinGoal = goalInfo.goal;
+                break;                        
+        }
+        this.updateRemaining();
+        this.store();
+        this.closeAllModals();
+    }
+
+    openSettings() {
+        this.settingsShowing = true;
     }
 }

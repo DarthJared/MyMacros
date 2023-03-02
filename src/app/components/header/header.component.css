@@ -8,3 +8,11 @@
     font-weight: bold;
     background-color: #424AF4;
 }
+
+.settings-icon {
+    position: absolute;
+    right: 15px;
+    top: -9px;
+    font-size: 50px;
+    cursor: pointer;
+}

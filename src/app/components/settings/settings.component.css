@@ -12,15 +12,10 @@
     border: solid 1px #444444;
     box-sizing: border-box;
     box-shadow: 2px 5px #0003;
-    width: 260px;
+    width: 350px;
     margin-top: 100px;
-    margin-left: calc(50% - 150px);
+    margin-left: calc(50% - 175px);
     padding: 20px;
-    text-align: center;
-}
-
-#meal-select-label {
-    padding: 10px;
 }
 
 .modal-title {
@@ -31,8 +26,45 @@
     margin-bottom: 20px;
 }
 
+#settings-tabs-header {
+    width: 100%;
+    padding: 10px;
+}
+
+.tab {
+    width: calc(33% - 20px);
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.tab-content {
+    width: 100%;
+}
+
+#defaults-table {
+    width: 100%;
+}
+
+.goal-input {
+    width: 50px;
+}
+
+.weekday-label {
+    width: 90px;
+}
+
+.goal-cell {
+    text-align: center;
+}
+
 .action-button {
     display: inline-block;
     margin-right: 10px;
     margin-top: 10px;
+}
+
+.active-tab {
+    background-color: #222222
 }

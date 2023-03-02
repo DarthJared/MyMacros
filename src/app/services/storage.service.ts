@@ -58,11 +58,34 @@ export class StorageService {
             return todaysGoals;
         }
     }
+    return null;
+  }
+
+  public saveWeekGoals(weekGoals: any) {
+    localStorage.setItem('weekGoals', JSON.stringify(weekGoals));
+  }
+
+  public getWeekGoals() {
+    const weekGoals = localStorage.getItem('weekGoals');
+    if (weekGoals) {
+        return JSON.parse(weekGoals);
+    }
+    return null;
+  }
+
+  public getTodaysDefaultGoals() {
+    const weekGoals = this.getWeekGoals();
+    if (weekGoals) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday','Saturday'];
+        const today = new Date();
+        const todayStr = days[today.getDay()];
+        return weekGoals[todayStr];
+    }
     return {
         calories: 0,
         carbs: 0,
         protein: 0
-    };
+    }
   }
 
   public clearData() {

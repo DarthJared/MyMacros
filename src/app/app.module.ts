@@ -8,9 +8,12 @@ import { AddButtonComponent } from './components/add-button/add-button.component
 import { AdderChooserComponent } from './components/adder-chooser/adder-chooser.component';
 import { AdderModalComponent } from './components/adder-modal/adder-modal.component';
 import { FoodAdderComponent } from './components/food-adder/food-adder.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { GoalEditorComponent } from './components/goal-editor/goal-editor.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { RemainingComponent } from './components/remaining/remaining.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { TodayFoodComponent } from './components/today-food/today-food.component';
 import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.component';
 
@@ -25,7 +28,10 @@ import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.com
     AdderChooserComponent,
     FoodAdderComponent,
     TodayFoodComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
+    GoalEditorComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

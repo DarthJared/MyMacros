@@ -13,14 +13,14 @@
     border: solid 1px #444444;
     box-sizing: border-box;
     box-shadow: 2px 5px #0003;
-    width: 220px;
     right: 20px;
-    bottom: 95px;
+    bottom: 130px;
 }
 
 .adder-option {
     padding: 10px;
     text-align: right;
+    cursor: pointer;
 }
 
 .adder-option:hover {
