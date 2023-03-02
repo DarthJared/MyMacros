@@ -2,10 +2,13 @@
     id="header" 
     (settings)="openSettings()">
 </header>
+<!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon> -->
 
 <today-food 
     id="today-food" 
-    [food]="todaysMeals">
+    [food]="todaysMeals"
+    (removeMeal)="removeMeal($event)"
+    (removeFood)="removeFood($event)">
 </today-food>
 
 <add-button 
@@ -45,6 +48,16 @@
     *ngIf="settingsShowing"
     (close)="closeAllModals()">
 </settings>
+<confirm-modal
+    id="confirm-modal"
+    *ngIf="confirmModalShowing"
+    (close)="closeAllModals()"
+    (confirm)="confirmClicked($event)"
+    [message]="confirmModalMessage"
+    [confirmText]="confirmModalButtonText"
+    [actionKey]="confirmModalActionKey"
+    [context]="confirmModalContext">
+</confirm-modal>
 
 
 <footer 

@@ -30,6 +30,12 @@ export class MainComponent {
     adderFoodShowing: boolean = false;
     goalEditorShowing: boolean = false;
     settingsShowing: boolean = false;
+    confirmModalShowing: boolean = false;
+
+    confirmModalMessage: string = 'Are you sure?';
+    confirmModalButtonText: string = 'Confirm';
+    confirmModalActionKey: string = '';
+    confirmModalContext: any = {};
 
     goalEditorAmount: number = 0;
     goalEditorName: string = '';
@@ -137,6 +143,7 @@ export class MainComponent {
         this.adderFoodShowing = false;
         this.goalEditorShowing = false;
         this.settingsShowing = false;
+        this.confirmModalShowing = false;
     }
 
     displayAdderModal() {
@@ -190,5 +197,35 @@ export class MainComponent {
 
     openSettings() {
         this.settingsShowing = true;
+    }
+
+    removeMeal(mealIndex: number) {
+        this.confirmModalButtonText = 'Remove';
+        this.confirmModalMessage = 'Are you sure you want to remove this food?';
+        this.confirmModalActionKey = 'removeMeal';
+        this.confirmModalContext = mealIndex;
+        this.confirmModalShowing = true;
+    }
+
+    removeFood(foodInfo: { mealIndex: number, foodIndex: number }) {
+        this.confirmModalButtonText = 'Remove';
+        this.confirmModalMessage = 'Are you sure you want to remove this meal?';
+        this.confirmModalActionKey = 'removeFood';
+        this.confirmModalContext = foodInfo;
+        this.confirmModalShowing = true;
+    }
+
+    confirmClicked(eventInfo: {context: any, actionKey: string}) {
+        switch(eventInfo.actionKey) {
+            case 'removeMeal':
+                this.todaysMeals.meals.splice(eventInfo.context, 1);
+                break;
+            case 'removeFood':
+                this.todaysMeals.meals[eventInfo.context.mealIndex].food.splice(eventInfo.context.foodIndex, 1);
+                break;
+        }
+        this.updateRemaining();
+        this.store();
+        this.closeAllModals();
     }
 }

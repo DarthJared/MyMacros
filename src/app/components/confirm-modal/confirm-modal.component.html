@@ -1,0 +1,15 @@
+<div id="background" (click)="closeModal()">
+    <div id="foreground" (click)="doNothing($event)">
+        <div class="modal-content">
+            {{message}}
+        </div>
+        <div class="modal-actions">
+            <div class="action-button" (click)="confirmClicked()">
+                <button>{{confirmText}}</button>
+            </div>
+            <div class="action-button">
+                <button (click)="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

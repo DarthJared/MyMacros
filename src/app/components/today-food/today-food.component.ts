@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'today-food',
@@ -7,6 +7,8 @@ import { Component, Input} from '@angular/core';
 })
 export class TodayFoodComponent {
     @Input() food: any = null;
+    @Output() removeMeal = new EventEmitter<number>();
+    @Output() removeFood = new EventEmitter<{mealIndex: number, foodIndex: number}>();
     expandedIndexes: any = {}
 
     showOpened(mealIndex: number, foodIndex: number) {
@@ -39,5 +41,13 @@ export class TodayFoodComponent {
             return foodInd != foodIndex;
         });
         this.expandedIndexes[mealIndex] = openedFoods;
+    }
+
+    deleteMeal(mealIndex: number) {
+        this.removeMeal.emit(mealIndex);
+    }
+
+    deleteFood(mealIndex: number, foodIndex: number) {
+        this.removeFood.emit({ mealIndex, foodIndex });
     }
 }

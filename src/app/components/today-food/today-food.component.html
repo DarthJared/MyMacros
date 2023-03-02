@@ -3,9 +3,19 @@
     <div *ngIf="food != null">
         <div *ngFor="let meal of food.meals; let m = index">
             <div class="meal-name">
+                <span class="meal-remover">
+                    <mat-icon 
+                        aria-hidden="false" 
+                        aria-label="delete meal" 
+                        fontIcon="delete" 
+                        class="delete-meal-icon" 
+                        (click)="deleteMeal(m)">
+                    </mat-icon>
+                </span>
                 {{meal.name}}
             </div>
             <div class="food-item" *ngFor="let food of meal.food; let f = index;" (click)="toggleOpened(m, f)">
+                
                 <span class="arrow" *ngIf="showOpened(m, f)">&#9660;</span>
                 <span class="arrow" *ngIf="!showOpened(m, f)">&#9654;</span>
                 <strong>{{food.name}} ({{food.servingSize}})</strong> 
@@ -13,6 +23,15 @@
                     <div class="info-detail">{{food.calories}} calories</div>
                     <div class="info-detail">{{food.carbs}} carbs (g)</div>
                     <div class="info-detail">{{food.protein}} protein (g</div>
+                    <div class="food-remover">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="delete meal" 
+                            fontIcon="delete" 
+                            class="delete-food-icon"
+                            (click)="deleteFood(m, f)">
+                        </mat-icon>
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,10 +12,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GoalEditorComponent } from './components/goal-editor/goal-editor.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
+import { MatIconModule } from '@angular/material/icon';
 import { RemainingComponent } from './components/remaining/remaining.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { TodayFoodComponent } from './components/today-food/today-food.component';
 import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +33,14 @@ import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.com
     HeaderComponent,
     FooterComponent,
     GoalEditorComponent,
-    SettingsComponent
+    SettingsComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

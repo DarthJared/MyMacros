@@ -5,6 +5,7 @@
 
 .food-item {
     margin: 10px;
+    margin-left: 25px;
     cursor: pointer;
 }
 
@@ -24,4 +25,14 @@
     margin-bottom: 5px;
     margin-left: 30px;
     margin-right: 5px;
+}
+
+.delete-meal-icon {
+    margin-bottom: -3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.delete-food-icon {
+    margin-left: 25px;
 }
