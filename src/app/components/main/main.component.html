@@ -7,6 +7,7 @@
 <today-food 
     id="today-food" 
     [food]="todaysMeals"
+    [existingFood]="storedFoods"
     (removeMeal)="removeMeal($event)"
     (removeFood)="removeFood($event)">
 </today-food>
@@ -33,7 +34,9 @@
     id="food-adder" 
     *ngIf="adderFoodShowing" 
     (close)="closeAllModals()" 
-    (food)="addFood($event)">
+    (food)="addFood($event)"
+    (store)="storeNewFood($event)"
+    [existingFoods]="storedFoods">
 </food-adder>
 <goal-editor 
     id="goal-editor" 

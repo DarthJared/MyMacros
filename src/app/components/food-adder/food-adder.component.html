@@ -1,34 +1,63 @@
 <div id="background" (click)="closeModal()">
     <div id="foreground" (click)="doNothing($event)">
         <div class="modal-title">Add A New Food</div>
-        <div class="modal-content">
-            <div class="food-field">
-                <label for="name" class="input-label">Name:</label>
-                <input type="text" id="name" name="name" [(ngModel)]="name">
+        <div class="modal-content">            
+            <div id="existing-food-title">
+                My Foods
             </div>
-            <div class="food-field">
-                <label for="serving-size" class="input-label">Serving Size:</label>
-                <input type="text" id="serving-size" name="serving-size" [(ngModel)]="servingSize">
+            <div id="existing-foods">
+                <div *ngFor="let food of existingFoods | sortByOrder" class="stored-food">
+                    <div (click)="foodClicked(food.id)">
+                        <span class="food-name">{{food.name}}</span>
+                        <span class="food-serving-size">({{food.servingSize}} {{food.servingUnits}})</span>
+                        <br>
+                        <span class="food-info">{{food.caloriesPerServing}} calories, {{food.carbsPerServing}} carbs, {{food.proteinPerServing}} protein</span>
+                    </div>
+                    <div *ngIf="selectedFoodId.toString() == food.id" class="quantity-chooser">
+                        <input type="number" class="food-num quantity-num" (change)="quantityChanged($event)">
+                        <span class="food-serving-size">{{food.servingUnits}}</span>
+                        <button class="adderButton" (click)="addFood(food.id)">Add</button>
+                    </div>
+                </div>
             </div>
-            <div class="food-field">
-                <label for="calories" class="input-label">Calories:</label>
-                <input type="number" id="calories" name="calories" [(ngModel)]="calories" class="food-num">
-            </div>
-            <div class="food-field">
-                <label for="carbs" class="input-label">Carbs (g):</label>
-                <input type="number" id="carbs" name="carbs" [(ngModel)]="carbs" class="food-num">
-            </div>
-            <div class="food-field">
-                <label for="protein" class="input-label">Protein (g):</label>
-                <input type="number" id="protein" name="protein" [(ngModel)]="protein" class="food-num">
+            <div id="new-food-info" *ngIf="newFoodShowing">
+                <div class="food-field">
+                    <label for="name" class="input-label">Name:</label>
+                    <input type="text" id="name" name="name" [(ngModel)]="name">
+                </div>
+                <div class="food-field">
+                    <label for="serving-size" class="input-label">Serving Size:</label>
+                    <input type="number" id="serving-size" name="serving-size" [(ngModel)]="servingSize" class="food-num">
+                    <input type="text" id="serving-units" name="serving-units" [(ngModel)]="servingSizeUnits" class="food-num">
+                </div>
+                <div class="food-field">
+                    <label for="calories" class="input-label">Calories:</label>
+                    <input type="number" id="calories" name="calories" [(ngModel)]="calories" class="food-num">
+                </div>
+                <div class="food-field">
+                    <label for="carbs" class="input-label">Carbs (g):</label>
+                    <input type="number" id="carbs" name="carbs" [(ngModel)]="carbs" class="food-num">
+                </div>
+                <div class="food-field">
+                    <label for="protein" class="input-label">Protein (g):</label>
+                    <input type="number" id="protein" name="protein" [(ngModel)]="protein" class="food-num">
+                </div>
+                <div>
+                    <div class="action-button">
+                        <button (click)="storeFood()">Add</button>
+                    </div>
+                    <div class="action-button">
+                        <button (click)="cancelNewFood()">Cancel</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-actions">
-            <div class="action-button" (click)="addFood()">
-                <button>Add Food</button>
-            </div>
             <div class="action-button">
-                <button (click)="closeModal()">Cancel</button>
+                <button (click)="closeModal()">Done</button>
+            </div>
+            <div id="new-food-button" class="action-button" *ngIf="!newFoodShowing">
+                <button (click)="newFoodClicked()">Add New Food</button>
             </div>
         </div>
     </div>

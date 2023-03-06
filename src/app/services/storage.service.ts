@@ -88,7 +88,46 @@ export class StorageService {
     }
   }
 
+  public getSavedFoods() {
+    const foods = localStorage.getItem('foods');
+    if (foods) {
+        return JSON.parse(foods);
+    }
+    return null;
+  }
+
+  public storeNewFood(food: StorableFood) {
+    let foods = this.getSavedFoods();
+    if (!foods) {
+        foods = {
+            [food.id]: food
+        };
+    }
+    else {
+        foods[food.id] = food;
+    }
+    localStorage.setItem('foods', JSON.stringify(foods));
+  }
+
+  public removeStoredFood(foodId: number) {
+    let foods = this.getSavedFoods();
+    if (foods) {
+        delete foods[foodId];
+        localStorage.setItem('foods', JSON.stringify(foods));
+    }
+  }
+
   public clearData() {
     localStorage.clear();
   }
+}
+
+type StorableFood = {
+  id: number
+  name: string
+  servingSize: number
+  servingUnits: string
+  caloriesPerServing: number
+  carbsPerServing: number
+  proteinPerServing: number
 }

@@ -18,6 +18,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { TodayFoodComponent } from './components/today-food/today-food.component';
 import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { SortByOrderPipe } from './pipes/sort-by-order.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     FooterComponent,
     GoalEditorComponent,
     SettingsComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    SortByOrderPipe
   ],
   imports: [
     BrowserModule,

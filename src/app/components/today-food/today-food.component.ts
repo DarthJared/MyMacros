@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TodayFoodComponent {
     @Input() food: any = null;
+    @Input() existingFood: any = null;
     @Output() removeMeal = new EventEmitter<number>();
     @Output() removeFood = new EventEmitter<{mealIndex: number, foodIndex: number}>();
     expandedIndexes: any = {}

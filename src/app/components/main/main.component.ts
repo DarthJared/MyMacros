@@ -9,14 +9,33 @@ type Food = {
     protein: number
 }
 
+type Consumption = {
+    id: number
+    quantity: number
+}
+
 type Meal = {
     name: string
-    food: Food[]
+    food: Consumption[]
 }
 
 type DaysMeals = {
     date: string
     meals: Meal[]
+}
+
+type StorableFood = {
+    id: number
+    name: string
+    servingSize: number
+    servingUnits: string
+    caloriesPerServing: number
+    carbsPerServing: number
+    proteinPerServing: number
+}
+
+type StoredFoodCatalogue = {
+    [id: number]: StorableFood
 }
 
 @Component({
@@ -44,6 +63,8 @@ export class MainComponent {
     todaysMeals: DaysMeals;
     mealExists: boolean = false;
 
+    storedFoods: StoredFoodCatalogue = {};
+
     caloriesGoal: number;
     carbsGoal: number;
     proteinGoal: number;
@@ -52,6 +73,8 @@ export class MainComponent {
     proteinLeft: number = 0;
     
     constructor(private storageService: StorageService) {
+        this.loadStoredFoods();
+
         let today = new Date();
 
         let todaysMeals = this.storageService.getTodaysMeals(today.toDateString())
@@ -76,6 +99,10 @@ export class MainComponent {
         this.updateRemaining();
     }
 
+    loadStoredFoods() {
+        this.storedFoods = this.storageService.getSavedFoods() ?? {};
+    }
+
     store() {
         this.storageService.saveMeals(this.todaysMeals);
         this.storageService.saveGoals({
@@ -93,9 +120,12 @@ export class MainComponent {
 
         for (const meal of this.todaysMeals.meals) {
             for (const food of meal.food) {
-                caloriesLeft -= food.calories;
-                carbsLeft -= food.carbs;
-                proteinLeft -= food.protein;
+                const foodInfo = this.storedFoods[food.id];
+                const servingPortion = (food.quantity / foodInfo.servingSize);
+
+                caloriesLeft -= foodInfo.caloriesPerServing * servingPortion;
+                carbsLeft -= foodInfo.carbsPerServing * servingPortion;
+                proteinLeft -= foodInfo.proteinPerServing * servingPortion;
             }
         }
 
@@ -125,9 +155,9 @@ export class MainComponent {
         this.closeAllModals();
     }
 
-    addFood(food: Food) {
+    addFood(foodInfo: Consumption) {
         let lastMealIndex = this.todaysMeals.meals.length - 1;
-        this.todaysMeals.meals[lastMealIndex].food.push(food);
+        this.todaysMeals.meals[lastMealIndex].food.push(foodInfo);
 
         this.closeAllModals();
         this.updateRemaining();
@@ -227,5 +257,10 @@ export class MainComponent {
         this.updateRemaining();
         this.store();
         this.closeAllModals();
+    }
+
+    storeNewFood(newFood: any) {
+        this.storageService.storeNewFood(newFood);
+        this.loadStoredFoods();
     }
 }

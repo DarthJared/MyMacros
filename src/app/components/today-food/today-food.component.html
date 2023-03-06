@@ -18,11 +18,11 @@
                 
                 <span class="arrow" *ngIf="showOpened(m, f)">&#9660;</span>
                 <span class="arrow" *ngIf="!showOpened(m, f)">&#9654;</span>
-                <strong>{{food.name}} ({{food.servingSize}})</strong> 
+                <strong>{{existingFood[food.id].name}} ({{food.quantity}} {{existingFood[food.id].servingUnits}})</strong> 
                 <div *ngIf="showOpened(m, f)">
-                    <div class="info-detail">{{food.calories}} calories</div>
-                    <div class="info-detail">{{food.carbs}} carbs (g)</div>
-                    <div class="info-detail">{{food.protein}} protein (g</div>
+                    <div class="info-detail">{{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize}} calories</div>
+                    <div class="info-detail">{{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize}} carbs (g)</div>
+                    <div class="info-detail">{{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize}} protein (g)</div>
                     <div class="food-remover">
                         <mat-icon 
                             aria-hidden="false" 
