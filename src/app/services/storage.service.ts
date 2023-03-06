@@ -21,12 +21,12 @@ export class StorageService {
     return {};
   }
 
-  public getTodaysMeals(date: string) {
+  public getDaysMeals(date: string) {
     let allMeals = this.getMeals();
     if (allMeals) {
-        let todaysMeals = allMeals[date];
-        if (todaysMeals) {
-            return todaysMeals;
+        let daysMeals = allMeals[date];
+        if (daysMeals) {
+            return daysMeals;
         }
     }
     return [];
@@ -50,12 +50,12 @@ export class StorageService {
     return {};
   }
 
-  public getTodaysGoals(date: string) {
+  public getDaysGoals(date: string) {
     let allGoals = this.getGoals();
     if (allGoals) {;
-        let todaysGoals = allGoals[date];
-        if (todaysGoals) {
-            return todaysGoals;
+        let goals = allGoals[date];
+        if (goals) {
+            return goals;
         }
     }
     return null;
@@ -73,11 +73,11 @@ export class StorageService {
     return null;
   }
 
-  public getTodaysDefaultGoals() {
+  public getDefaultGoals(dateString: string) {
     const weekGoals = this.getWeekGoals();
     if (weekGoals) {
         const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday','Saturday'];
-        const today = new Date();
+        const today = new Date(dateString);
         const todayStr = days[today.getDay()];
         return weekGoals[todayStr];
     }

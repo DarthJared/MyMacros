@@ -2,11 +2,15 @@
     id="header" 
     (settings)="openSettings()">
 </header>
-<!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon> -->
 
+<date-selector
+    id="date-selector"
+    [selectedDate]="observedDay | stringToDate"
+    (dateChanged)="updateDate($event)">
+</date-selector>
 <today-food 
     id="today-food" 
-    [food]="todaysMeals"
+    [food]="daysMeals"
     [existingFood]="storedFoods"
     (removeMeal)="removeMeal($event)"
     (removeFood)="removeFood($event)">

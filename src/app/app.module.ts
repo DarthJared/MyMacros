@@ -20,6 +20,9 @@ import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.com
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SortByOrderPipe } from './pipes/sort-by-order.pipe';
 import { RoundOnePlacePipe } from './pipes/round-one-place.pipe';
+import { DateSelectorComponent } from './components/date-selector/date-selector.component';
+import { StringToDatePipe } from './pipes/string-to-date.pipe';
+import { DateToStringPipe } from './pipes/date-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { RoundOnePlacePipe } from './pipes/round-one-place.pipe';
     SettingsComponent,
     ConfirmModalComponent,
     SortByOrderPipe,
-    RoundOnePlacePipe
+    RoundOnePlacePipe,
+    DateSelectorComponent,
+    StringToDatePipe,
+    DateToStringPipe
   ],
   imports: [
     BrowserModule,

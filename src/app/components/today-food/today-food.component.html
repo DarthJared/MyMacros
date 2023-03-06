@@ -2,18 +2,24 @@
     <div *ngIf="food == null">No food entered</div>
     <div *ngIf="food != null">
         <div *ngFor="let meal of food.meals; let m = index">
-            <div class="meal-name">
-                <span class="meal-remover">
-                    <mat-icon 
-                        aria-hidden="false" 
-                        aria-label="delete meal" 
-                        fontIcon="delete" 
-                        class="delete-meal-icon" 
-                        (click)="deleteMeal(m)">
-                    </mat-icon>
-                </span>
-                {{meal.name}}
-            </div>
+            <table class="meal-name">
+                <tr>
+                    <td>
+                        {{meal.name}}
+                    </td>
+                    <td class="trash-cell">
+                        <span class="meal-remover">
+                            <mat-icon 
+                                aria-hidden="false" 
+                                aria-label="delete meal" 
+                                fontIcon="delete" 
+                                class="delete-meal-icon" 
+                                (click)="deleteMeal(m)">
+                            </mat-icon>
+                        </span>
+                    </td>
+                </tr>
+            </table>
             <div class="food-item" *ngFor="let food of meal.food; let f = index;" (click)="toggleOpened(m, f)">
                 
                 <span class="arrow" *ngIf="showOpened(m, f)">&#9660;</span>

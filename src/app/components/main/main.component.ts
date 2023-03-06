@@ -60,14 +60,19 @@ export class MainComponent {
     goalEditorName: string = '';
 
     currentMeal: string = '';
-    todaysMeals: DaysMeals;
+    daysMeals: DaysMeals = {
+        date: '01-01-1900',
+        meals: []
+    };
     mealExists: boolean = false;
 
     storedFoods: StoredFoodCatalogue = {};
 
-    caloriesGoal: number;
-    carbsGoal: number;
-    proteinGoal: number;
+    observedDay: string;
+
+    caloriesGoal: number = 0;
+    carbsGoal: number = 0;
+    proteinGoal: number = 0;
     caloriesLeft: number = 0;
     carbsLeft: number = 0;
     proteinLeft: number = 0;
@@ -76,27 +81,34 @@ export class MainComponent {
         this.loadStoredFoods();
 
         let today = new Date();
+        this.observedDay = today.toDateString();
 
-        let todaysMeals = this.storageService.getTodaysMeals(today.toDateString())
+        this.loadMeals();
+        this.updateDaysGoals();
+        this.updateRemaining();
+    }
+
+    loadMeals() {
+        let todaysMeals = this.storageService.getDaysMeals(this.observedDay)
         if (todaysMeals.length > 0) {
             this.mealExists = true;
         }
         
-        this.todaysMeals = {
-            date: today.toDateString(),
+        this.daysMeals = {
+            date: this.observedDay,
             meals: todaysMeals
         }
+    }
 
-        let goalInfo = this.storageService.getTodaysGoals(today.toDateString());
+    updateDaysGoals() {
+        let goalInfo = this.storageService.getDaysGoals(this.observedDay);
         if (!goalInfo) {
-            goalInfo = this.storageService.getTodaysDefaultGoals();
+            goalInfo = this.storageService.getDefaultGoals(this.observedDay);
         }
 
         this.caloriesGoal = goalInfo.calories;
         this.carbsGoal = goalInfo.carbs;
         this.proteinGoal = goalInfo.protein;
-
-        this.updateRemaining();
     }
 
     loadStoredFoods() {
@@ -104,9 +116,9 @@ export class MainComponent {
     }
 
     store() {
-        this.storageService.saveMeals(this.todaysMeals);
+        this.storageService.saveMeals(this.daysMeals);
         this.storageService.saveGoals({
-            date: this.todaysMeals.date,
+            date: this.daysMeals.date,
             calories: this.caloriesGoal,
             carbs: this.carbsGoal,
             protein: this.proteinGoal
@@ -118,7 +130,7 @@ export class MainComponent {
         let carbsLeft = this.carbsGoal;
         let proteinLeft = this.proteinGoal;
 
-        for (const meal of this.todaysMeals.meals) {
+        for (const meal of this.daysMeals.meals) {
             for (const food of meal.food) {
                 const foodInfo = this.storedFoods[food.id];
                 const servingPortion = (food.quantity / foodInfo.servingSize);
@@ -135,7 +147,6 @@ export class MainComponent {
     }
 
     updateGoals(goals: any) {
-        console.log(goals)
         this.caloriesGoal = goals.calories;
         this.carbsGoal = goals.carbs;
         this.proteinGoal = goals.protein;
@@ -150,21 +161,19 @@ export class MainComponent {
             food: []
         };
 
-        this.todaysMeals.meals.push(newMeal)
+        this.daysMeals.meals.push(newMeal)
         this.mealExists = true;
         this.closeAllModals();
     }
 
     addFood(foodInfo: Consumption) {
-        let lastMealIndex = this.todaysMeals.meals.length - 1;
-        this.todaysMeals.meals[lastMealIndex].food.push(foodInfo);
+        let lastMealIndex = this.daysMeals.meals.length - 1;
+        this.daysMeals.meals[lastMealIndex].food.push(foodInfo);
 
         this.closeAllModals();
         this.updateRemaining();
 
         this.store();
-
-        console.log(this.todaysMeals)
     }
 
     closeAllModals() {
@@ -248,10 +257,10 @@ export class MainComponent {
     confirmClicked(eventInfo: {context: any, actionKey: string}) {
         switch(eventInfo.actionKey) {
             case 'removeMeal':
-                this.todaysMeals.meals.splice(eventInfo.context, 1);
+                this.daysMeals.meals.splice(eventInfo.context, 1);
                 break;
             case 'removeFood':
-                this.todaysMeals.meals[eventInfo.context.mealIndex].food.splice(eventInfo.context.foodIndex, 1);
+                this.daysMeals.meals[eventInfo.context.mealIndex].food.splice(eventInfo.context.foodIndex, 1);
                 break;
         }
         this.updateRemaining();
@@ -262,5 +271,13 @@ export class MainComponent {
     storeNewFood(newFood: any) {
         this.storageService.storeNewFood(newFood);
         this.loadStoredFoods();
+    }
+
+    updateDate(date: Date) {
+        console.log(date)
+        this.observedDay = date.toDateString();
+        this.loadMeals();
+        this.updateDaysGoals();
+        this.updateRemaining();
     }
 }
