@@ -3,15 +3,15 @@
         <tr>
             <td class="remaining-button" (click)="caloriesClicked()">
                 <div class="units-header">calories</div>
-                <span class="remaining-amount">{{caloriesRemaining}}</span><span class="spacer">/</span><span class="goal-amount">{{caloriesGoal}}</span>
+                <span class="remaining-amount">{{caloriesRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{caloriesGoal}}</span>
             </td>
             <td class="remaining-button" (click)="carbsClicked()">
                 <div class="units-header">carbs (g)</div>
-                <span class="remaining-amount">{{carbsRemaining}}</span><span class="spacer">/</span><span class="goal-amount">{{carbsGoal}}</span>
+                <span class="remaining-amount">{{carbsRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{carbsGoal}}</span>
             </td>
             <td class="remaining-button" (click)="proteinClicked()">
                 <div class="units-header">protein (g)</div>
-                <span class="remaining-amount">{{proteinRemaining}}</span><span class="spacer">/</span><span class="goal-amount">{{proteinGoal}}</span>
+                <span class="remaining-amount">{{proteinRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{proteinGoal}}</span>
             </td>
         </tr>
     </table>

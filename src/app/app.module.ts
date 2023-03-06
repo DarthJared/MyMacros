@@ -19,6 +19,7 @@ import { TodayFoodComponent } from './components/today-food/today-food.component
 import { TodaysGoalsComponent } from './components/todays-goals/todays-goals.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SortByOrderPipe } from './pipes/sort-by-order.pipe';
+import { RoundOnePlacePipe } from './pipes/round-one-place.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SortByOrderPipe } from './pipes/sort-by-order.pipe';
     GoalEditorComponent,
     SettingsComponent,
     ConfirmModalComponent,
-    SortByOrderPipe
+    SortByOrderPipe,
+    RoundOnePlacePipe
   ],
   imports: [
     BrowserModule,
