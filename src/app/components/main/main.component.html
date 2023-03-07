@@ -40,6 +40,7 @@
     (close)="closeAllModals()" 
     (food)="addFood($event)"
     (store)="storeNewFood($event)"
+    (updateFoods)="updateFoods($event)"
     [existingFoods]="storedFoods">
 </food-adder>
 <goal-editor 
@@ -53,7 +54,8 @@
 <settings
     id="settings"
     *ngIf="settingsShowing"
-    (close)="closeAllModals()">
+    (close)="closeAllModals()"
+    (clear)="settingsClear($event)">
 </settings>
 <confirm-modal
     id="confirm-modal"

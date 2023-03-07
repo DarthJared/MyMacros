@@ -264,6 +264,9 @@ export class MainComponent {
             case 'removeFood':
                 this.daysMeals.meals[eventInfo.context.mealIndex].food.splice(eventInfo.context.foodIndex, 1);
                 break;
+            case 'clearStorage':
+                this.clearConfirmed();
+                break;
         }
         this.updateRemaining();
         this.store();
@@ -285,6 +288,63 @@ export class MainComponent {
     updateFood(updatedMeals: DaysMeals) {
         this.daysMeals = updatedMeals;
         this.store();
+        this.updateRemaining();
+    }
+
+    settingsClear(context: string) {
+        this.confirmModalButtonText = 'Clear';
+        this.confirmModalMessage = 'Are you sure you want to clear this data?';
+        this.confirmModalActionKey = 'clearStorage';
+        this.confirmModalContext = context;
+        this.confirmModalShowing = true;
+    }
+
+    clearConfirmed() {
+        switch(this.confirmModalContext) {
+            case 'foodsMeals':
+                this.clearMealsData();
+                this.storageService.clearItem('foods'); 
+                break;
+            case 'meals':
+                this.clearMealsData();
+                break;
+            case 'goals':
+                this.clearGoalsData();
+                this.storageService.clearItem('goals');
+                this.storageService.clearItem('weekGoals');
+                break;
+            case 'all':
+                this.clearMealsData();
+                this.clearGoalsData();
+                this.storageService.clearItem('goals');
+                this.storageService.clearData();
+                break;
+        }
+    }
+
+    clearGoalsData() {
+        this.caloriesGoal = 0;
+        this.carbsGoal = 0;
+        this.proteinGoal = 0;
+    }
+
+    clearMealsData() {
+        this.daysMeals = {
+            date: '01-01-1900',
+            meals: []
+        }
+        const today = new Date();
+        this.observedDay = today.toDateString();
+        this.storageService.clearItem('meals');
+        this.loadStoredFoods();
+        this.loadMeals();
+        this.updateDaysGoals();
+        this.updateRemaining();
+    }
+
+    updateFoods(foods: any) {
+        this.storageService.updateFoods(foods);
+        this.loadStoredFoods();
         this.updateRemaining();
     }
 }

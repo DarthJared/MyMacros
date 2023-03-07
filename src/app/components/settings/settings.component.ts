@@ -24,6 +24,7 @@ type WeekPlan = {
 })
 export class SettingsComponent {
     @Output() close = new EventEmitter<string>();
+    @Output() clear = new EventEmitter<string>();
 
     weekPlan: WeekPlan;
     activeTab: string = 'Defaults';
@@ -90,4 +91,20 @@ export class SettingsComponent {
     doNothing(event: any) {
         event.stopPropagation();
     }    
+
+    clearFoodsMeals() {
+        this.clear.emit('foodsMeals');
+    }
+
+    clearMeals() {
+        this.clear.emit('meals');
+    }
+
+    clearGoals() {
+        this.clear.emit('goals');
+    }
+
+    clearAll() {
+        this.clear.emit('all');
+    }
 }

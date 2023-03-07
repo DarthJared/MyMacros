@@ -68,7 +68,7 @@
     cursor: pointer;
 }
 
-.action-button:hover {
+.action-button:hover, .action-button-listed:hover {
     background-color: #444444;
 }
 
@@ -87,4 +87,12 @@
 .modal-actions {
     width: 100%;
     text-align: right;
+}
+
+.action-button-listed {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    cursor: pointer;
+    color: #69B1F5;
 }

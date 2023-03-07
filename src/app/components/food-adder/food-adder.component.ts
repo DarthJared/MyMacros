@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
 type Food = {
     name: string
@@ -28,12 +28,17 @@ export class FoodAdderComponent {
     @Output() close = new EventEmitter<string>();
     @Output() food = new EventEmitter<{ id: number, quantity: number }>();
     @Output() store = new EventEmitter<StorableFood>();
+    @Output() updateFoods = new EventEmitter<{ [id: number]: StorableFood }>();
 
     @Input() existingFoods: { [id: number]: StorableFood } = {};
 
     newFoodShowing: boolean = false;
     selectedFoodId: number = 0;
     selectedFoodQuantity: number = 0;
+
+    foodEditing: boolean = false;
+
+    oldFoods: { [id: number]: StorableFood } = {};
 
     name: string = '';
     servingSize: number = 0;
@@ -42,10 +47,14 @@ export class FoodAdderComponent {
     carbs: number = 0;
     protein: number = 0;
 
+    constructor(private ref: ChangeDetectorRef) {
 
+    }
 
     closeModal() {
-        this.close.emit('close');
+        if (!this.foodEditing) {
+            this.close.emit('close');
+        }
     }
 
     doNothing(event: any) {
@@ -87,7 +96,7 @@ export class FoodAdderComponent {
     }
 
     foodClicked(id: any) {
-        if (this.selectedFoodId == id) {
+        if (this.foodEditing || this.selectedFoodId == id) {
             this.selectedFoodId = 0;
         }
         else {
@@ -98,5 +107,27 @@ export class FoodAdderComponent {
 
     quantityChanged(event: any) {
         this.selectedFoodQuantity = event.target.valueAsNumber;
+    }
+
+    editFoods() {
+        this.oldFoods = JSON.parse(JSON.stringify(this.existingFoods));
+        this.newFoodShowing = false;
+        this.selectedFoodId = 0;
+        this.foodEditing = true;
+    }
+
+    saveFoodEdits() {
+        this.updateFoods.emit(this.existingFoods);
+        this.foodEditing = false;
+    }
+
+    deleteFood(foodId: number) {
+        delete this.existingFoods[foodId];
+        this.updateFoods.emit(this.existingFoods);
+    }
+
+    cancelEditing() {
+        this.existingFoods = this.oldFoods;
+        this.saveFoodEdits();
     }
 }

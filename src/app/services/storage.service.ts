@@ -109,12 +109,12 @@ export class StorageService {
     localStorage.setItem('foods', JSON.stringify(foods));
   }
 
-  public removeStoredFood(foodId: number) {
-    let foods = this.getSavedFoods();
-    if (foods) {
-        delete foods[foodId];
-        localStorage.setItem('foods', JSON.stringify(foods));
-    }
+  public updateFoods(foods: { [id: number]: StorableFood }) {
+    localStorage.setItem('foods', JSON.stringify(foods));
+  }
+
+  public clearItem(key: string) {
+    localStorage.removeItem(key);
   }
 
   public clearData() {

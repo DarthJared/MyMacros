@@ -5,18 +5,37 @@
             <div id="existing-food-title">
                 My Foods
             </div>
+            <div id="foods-edit-button" (click)="editFoods()" *ngIf="!foodEditing">
+                <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="edit food" 
+                    fontIcon="edit" 
+                    class="edit-food-icon">
+                </mat-icon>
+            </div>
             <div id="existing-foods">
                 <div *ngFor="let food of existingFoods | sortByOrder" class="stored-food">
                     <div (click)="foodClicked(food.id)">
-                        <span class="food-name">{{food.name}}</span>
-                        <span class="food-serving-size">({{food.servingSize}} {{food.servingUnits}})</span>
+                        <span class="food-remover" *ngIf="foodEditing">
+                            <mat-icon 
+                                aria-hidden="false" 
+                                aria-label="delete food" 
+                                fontIcon="delete" 
+                                class="delete-food-icon" 
+                                (click)="deleteFood(food.id)">
+                            </mat-icon>
+                        </span>
+                        <span class="food-name" *ngIf="!foodEditing">{{food.name}}</span>
+                        <input type="text" class="food-name-input" [(ngModel)]="food.name" *ngIf="foodEditing">
+                        <span class="food-serving-size" *ngIf="!foodEditing">({{food.servingSize}} {{food.servingUnits}})</span>
+                        <input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingSize">
+                        <input type="text" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingUnits">
                         <br>
-                        <span class="food-info">{{food.caloriesPerServing}} calories, {{food.carbsPerServing}} carbs, {{food.proteinPerServing}} protein</span>
+                        <span class="food-info"><span *ngIf="!foodEditing">{{food.caloriesPerServing}}</span><input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.caloriesPerServing"> calories, <br *ngIf="foodEditing"><span *ngIf="!foodEditing">{{food.carbsPerServing}}</span><input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.carbsPerServing"> carbs, <br *ngIf="foodEditing"><span *ngIf="!foodEditing">{{food.proteinPerServing}}</span><input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.proteinPerServing"> protein</span>
                     </div>
                     <div *ngIf="selectedFoodId.toString() == food.id" class="quantity-chooser">
-                        <input type="number" class="food-num quantity-num" (change)="quantityChanged($event)">
+                        <input type="number" class="food-num quantity-num" [ngModel]="food.servingSize" (change)="quantityChanged($event)">
                         <span class="food-serving-size">{{food.servingUnits}}</span>
-                        <!-- <button class="adderButton" (click)="addFood(food.id)">Add</button> -->
                         <div class="action-button" (click)="addFood(food.id)">
                             <mat-icon 
                                 aria-hidden="false" 
@@ -71,11 +90,27 @@
             </div>
         </div>
         <div class="modal-actions action-button-wrapper">
-            <div id="done-button" class="action-button" (click)="closeModal()">
+            <div id="done-button" class="action-button" (click)="closeModal()" *ngIf="!foodEditing">
                 Done
             </div>
-            <div id="new-food-button" class="action-button" *ngIf="!newFoodShowing" (click)="newFoodClicked()">
+            <div id="new-food-button" class="action-button" *ngIf="!newFoodShowing && !foodEditing" (click)="newFoodClicked()">
                 Add New Food
+            </div>
+            <div class="action-button" (click)="saveFoodEdits()" *ngIf="foodEditing">
+                <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="save-food-edits" 
+                    fontIcon="done" 
+                    class="add-food-icon">
+                </mat-icon>
+            </div>
+            <div class="action-button" (click)="cancelEditing()" *ngIf="foodEditing">
+                <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="cancel update" 
+                    fontIcon="close" 
+                    class="cancel-icon">
+                </mat-icon>
             </div>
         </div>
     </div>

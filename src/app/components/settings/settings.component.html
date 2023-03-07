@@ -129,7 +129,20 @@
                 Which Macros do you want to track?
             </div>
             <div class="tab-content" *ngIf="activeTab == 'Other'">
-                Other settings
+                <div class="action-button-listed" (click)="clearMeals()">Clear Saved Meals</div>
+                <div class="action-button-listed" (click)="clearFoodsMeals()">Clear Saved Foods and Meals</div>
+                <div class="action-button-listed" (click)="clearGoals()">Clear Saved Goals</div>
+                <div class="action-button-listed" (click)="clearAll()">Clear All</div>
+                <div class="modal-actions">
+                    <div class="action-button" (click)="closeModal()">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="close" 
+                            fontIcon="done" 
+                            id="confirm-button">
+                        </mat-icon>
+                    </div>
+                </div>
             </div>
         </div>        
     </div>

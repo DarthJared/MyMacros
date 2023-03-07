@@ -32,7 +32,7 @@
 }
 
 .food-num {
-    width: 50px;
+    width: 45px;
 }
 
 .food-field {
@@ -121,4 +121,27 @@
 .inline-adder {
     font-size: 18px;
     height: 14px;
+}
+
+#foods-edit-button {
+    position: absolute;
+    right: calc(50% - 145px);
+    top: 164px;
+}
+
+.serving-size-input {
+    width: 45px;
+}
+
+.serving-units-input {
+    width: 50px;
+}
+
+.edit-num-input {
+    margin-left: 25px;
+}
+
+.delete-food-icon {
+    margin-bottom: -6px;
+    cursor: pointer;
 }
