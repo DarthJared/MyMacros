@@ -21,6 +21,24 @@
 
 .action-button {
     display: inline-block;
-    margin-right: 10px;
     margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #444444;
+}
+
+.modal-actions {
+    width: 100%;
+    text-align: right;
+}
+
+#confirm-button {
+    color: #69B1F5;
+}
+
+#cancel-button {
+    color: #f56969;
 }

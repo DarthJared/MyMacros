@@ -62,10 +62,29 @@
 
 .action-button {
     display: inline-block;
-    margin-right: 10px;
     margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #444444;
 }
 
 .active-tab {
     background-color: #222222
+}
+
+#confirm-button {
+    color: #69B1F5;
+}
+
+#cancel-button {
+    color: #f56969;
+}
+
+.modal-actions {
+    width: 100%;
+    text-align: right;
 }

@@ -4,11 +4,11 @@
             {{message}}
         </div>
         <div class="modal-actions">
-            <div class="action-button" (click)="confirmClicked()">
-                <button>{{confirmText}}</button>
+            <div class="action-button" id="confirm-button" (click)="confirmClicked()">
+                {{confirmText}}
             </div>
-            <div class="action-button">
-                <button (click)="closeModal()">Cancel</button>
+            <div class="action-button" id="cancel-button" (click)="closeModal()">
+                Cancel
             </div>
         </div>
     </div>

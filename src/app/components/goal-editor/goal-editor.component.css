@@ -31,6 +31,12 @@
     display: inline-block;
     margin-right: 10px;
     margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #444444;
 }
 
 #goal-input {
@@ -40,4 +46,17 @@
 #goal-label {
     display: inline-block;
     padding: 10px;
+}
+
+#confirm-button {
+    color: #69B1F5;
+}
+
+#cancel-button {
+    color: #f56969;
+}
+
+.modal-actions {
+    width: 100%;
+    text-align: right;
 }

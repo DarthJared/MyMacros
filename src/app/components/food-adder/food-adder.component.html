@@ -16,7 +16,15 @@
                     <div *ngIf="selectedFoodId.toString() == food.id" class="quantity-chooser">
                         <input type="number" class="food-num quantity-num" (change)="quantityChanged($event)">
                         <span class="food-serving-size">{{food.servingUnits}}</span>
-                        <button class="adderButton" (click)="addFood(food.id)">Add</button>
+                        <!-- <button class="adderButton" (click)="addFood(food.id)">Add</button> -->
+                        <div class="action-button" (click)="addFood(food.id)">
+                            <mat-icon 
+                                aria-hidden="false" 
+                                aria-label="add food" 
+                                fontIcon="done" 
+                                class="add-food-icon inline-adder">
+                            </mat-icon>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,22 +51,20 @@
                     <input type="number" id="protein" name="protein" [(ngModel)]="protein" class="food-num">
                 </div>
                 <div class="action-button-wrapper">
-                    <div class="action-button">
+                    <div class="action-button" (click)="storeFood()">
                         <mat-icon 
                             aria-hidden="false" 
                             aria-label="add food" 
                             fontIcon="done" 
-                            class="add-food-icon"
-                            (click)="storeFood()">
+                            class="add-food-icon">
                         </mat-icon>
                     </div>
-                    <div class="action-button">
+                    <div class="action-button" (click)="cancelNewFood()">
                         <mat-icon 
                             aria-hidden="false" 
                             aria-label="cancel add food" 
                             fontIcon="close" 
-                            class="cancel-icon"
-                            (click)="cancelNewFood()">
+                            class="cancel-icon">
                         </mat-icon>
                     </div>
                 </div>

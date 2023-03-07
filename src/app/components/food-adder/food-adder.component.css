@@ -68,6 +68,7 @@
 
 .stored-food { 
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .quantity-num {
@@ -115,4 +116,9 @@
 .action-button-wrapper {
     width: 100%;
     text-align: right;
+}
+
+.inline-adder {
+    font-size: 18px;
+    height: 14px;
 }

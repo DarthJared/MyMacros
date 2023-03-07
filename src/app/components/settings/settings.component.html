@@ -108,10 +108,20 @@
                 </table>
                 <div class="modal-actions">
                     <div class="action-button" (click)="saveGoals()">
-                        <button>Save Goals</button>
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="update" 
+                            fontIcon="done" 
+                            id="confirm-button">
+                        </mat-icon>
                     </div>
-                    <div class="action-button">
-                        <button (click)="closeModal()">Cancel</button>
+                    <div class="action-button" (click)="closeModal()">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="cancel update" 
+                            fontIcon="close" 
+                            id="cancel-button">
+                        </mat-icon>
                     </div>
                 </div>
             </div>

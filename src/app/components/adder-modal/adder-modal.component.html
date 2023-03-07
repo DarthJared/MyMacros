@@ -13,22 +13,20 @@
             </div>
         </div>
         <div class="modal-actions action-button-wrapper">
-            <div class="action-button">
+            <div class="action-button" (click)="startMeal()">
                 <mat-icon 
                     aria-hidden="false" 
                     aria-label="start meal" 
                     fontIcon="done" 
-                    class="start-meal-icon"
-                    (click)="startMeal()">
+                    class="start-meal-icon">
                 </mat-icon>
             </div>
-            <div class="action-button">
+            <div class="action-button" (click)="closeModal()">
                 <mat-icon 
                     aria-hidden="false" 
                     aria-label="close modal" 
                     fontIcon="close" 
-                    class="cancel-icon"
-                    (click)="closeModal()">
+                    class="cancel-icon">
                 </mat-icon>
             </div>
         </div>
