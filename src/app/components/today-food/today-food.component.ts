@@ -10,10 +10,23 @@ export class TodayFoodComponent {
     @Input() existingFood: any = null;
     @Output() removeMeal = new EventEmitter<number>();
     @Output() removeFood = new EventEmitter<{mealIndex: number, foodIndex: number}>();
-    expandedIndexes: any = {}
+    @Output() updateFood = new EventEmitter<any>();
+    @Output() addFoodToMeal = new EventEmitter<number>();
+    expandedIndexes: any = {};
+    editingIndex: any = {
+        mealIndex: -1,
+        foodIndex: -1
+    };
 
     showOpened(mealIndex: number, foodIndex: number) {
         if (this.expandedIndexes[mealIndex]?.includes(foodIndex)) {
+            return true;
+        }
+        return false;
+    }
+
+    showEditing(mealIndex: number, foodIndex: number) {
+        if (this.editingIndex.mealIndex == mealIndex && this.editingIndex.foodIndex == foodIndex) {
             return true;
         }
         return false;
@@ -26,6 +39,19 @@ export class TodayFoodComponent {
         else {
             this.openFood(mealIndex, foodIndex);
         }
+    }
+
+    setEditing(mealIndex: number, foodIndex: number, event: any) {
+        this.editingIndex.mealIndex = mealIndex;
+        this.editingIndex.foodIndex = foodIndex;
+
+        event.stopPropagation();
+    }
+
+    closeEditing(event: any) {
+        this.setEditing(-1, -1, event);
+
+        event.stopPropagation();
     }
 
     openFood(mealIndex: number, foodIndex: number) {
@@ -50,5 +76,20 @@ export class TodayFoodComponent {
 
     deleteFood(mealIndex: number, foodIndex: number) {
         this.removeFood.emit({ mealIndex, foodIndex });
+    }
+
+    saveEdit(event: any) {
+        this.updateFood.emit(this.food);
+        this.closeEditing(event);
+        event.stopPropagation();
+    }
+
+    addFood(mealIndex: number, event: any) {
+        this.addFoodToMeal.emit(mealIndex);
+        this.doNothing(event);
+    }
+
+    doNothing(event: any) {
+        event.stopPropagation();
     }
 }

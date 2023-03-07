@@ -21,18 +21,32 @@
                 </tr>
             </table>
             <div class="food-item" *ngFor="let food of meal.food; let f = index;" (click)="toggleOpened(m, f)">
-                
-                <span class="arrow" *ngIf="showOpened(m, f)">&#9660;</span>
-                <span class="arrow" *ngIf="!showOpened(m, f)">&#9654;</span>
-                <span>{{existingFood[food.id].name}} ({{food.quantity}} {{existingFood[food.id].servingUnits}})</span> 
+                <span>{{existingFood[food.id].name}} (<span *ngIf="!showEditing(m, f)">{{food.quantity}}</span><span *ngIf="showEditing(m, f)">
+                    <input type="number" class="editor-input" (click)="doNothing($event)" [(ngModel)]="food.quantity">
+                </span> {{existingFood[food.id].servingUnits}}<span *ngIf="showEditing(m, f)">
+                    <mat-icon 
+                        aria-hidden="false" 
+                        aria-label="save edit" 
+                        fontIcon="done" 
+                        class="save-edit-icon"
+                        (click)="saveEdit($event)">
+                    </mat-icon>
+                </span>)</span> 
+                <div class="food-details">{{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} calories | {{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} carbs (g) | {{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} protein (g)</div>
                 <div *ngIf="showOpened(m, f)">
-                    <div class="info-detail">{{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} calories</div>
-                    <div class="info-detail">{{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} carbs (g)</div>
-                    <div class="info-detail">{{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} protein (g)</div>
+                    <div class="food-editor">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="edit food" 
+                            fontIcon="edit" 
+                            class="edit-food-icon"
+                            (click)="setEditing(m, f, $event)">
+                        </mat-icon>
+                    </div>
                     <div class="food-remover">
                         <mat-icon 
                             aria-hidden="false" 
-                            aria-label="delete meal" 
+                            aria-label="delete food" 
                             fontIcon="delete" 
                             class="delete-food-icon"
                             (click)="deleteFood(m, f)">
@@ -40,6 +54,8 @@
                     </div>
                 </div>
             </div>
+            <div class="add-food-link"><span (click)="addFood(m, $event)" class="add-food-text">Add Food</span></div>
+            <hr class="meal-divider" *ngIf="m != food.meals.length - 1">
         </div>
     </div>
 </div>

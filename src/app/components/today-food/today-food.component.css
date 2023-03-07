@@ -6,7 +6,6 @@
 
 .food-item {
     margin: 10px;
-    margin-left: 25px;
     cursor: pointer;
 }
 
@@ -14,6 +13,7 @@
     padding-left: 8px;
     padding-right: 10px;
     padding-top: 10px;
+    padding-bottom: 70px;
 }
 
 .arrow {
@@ -34,10 +34,50 @@
     cursor: pointer;
 }
 
-.delete-food-icon {
-    margin-left: 25px;
+.food-editor, .food-remover {
+    display: inline-block;
+}
+
+.edit-food-icon, .delete-food-icon {
+    margin-left: 10px;
 }
 
 .trash-cell {
     width: 35px
+}
+
+.food-details {
+    font-size: 14px;
+    padding-left: 10px;
+    opacity: 70%;
+}
+
+.editor-input {
+    width: 45px;
+}
+
+.save-edit-icon {
+    margin-top: -10px;
+    margin-bottom: -7px;
+    font-size: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+    color: #69B1F5;
+}
+
+.meal-divider {
+    margin-left: 20px;
+    margin-right: 40px;
+    opacity: 30%;
+    margin-top: 10px;
+}
+
+.add-food-link {
+    width: 100%;
+    color: #69B1F5;
+    text-align: center;
+}
+
+.add-food-text {
+    cursor: pointer;
 }

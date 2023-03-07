@@ -12,12 +12,24 @@
                 </select>
             </div>
         </div>
-        <div class="modal-actions">
-            <div class="action-button" (click)="startMeal()">
-                <button>Start Meal</button>
+        <div class="modal-actions action-button-wrapper">
+            <div class="action-button">
+                <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="start meal" 
+                    fontIcon="done" 
+                    class="start-meal-icon"
+                    (click)="startMeal()">
+                </mat-icon>
             </div>
             <div class="action-button">
-                <button (click)="closeModal()">Cancel</button>
+                <mat-icon 
+                    aria-hidden="false" 
+                    aria-label="close modal" 
+                    fontIcon="close" 
+                    class="cancel-icon"
+                    (click)="closeModal()">
+                </mat-icon>
             </div>
         </div>
     </div>

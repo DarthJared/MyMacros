@@ -6,10 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./adder-chooser.component.css']
 })
 export class AdderChooserComponent {
-    @Input() mealExists = false;
     @Output() close = new EventEmitter<string>();
     @Output() meal = new EventEmitter<string>();
-    @Output() food = new EventEmitter<string>();
 
     closeModal() {
         this.close.emit('close');
@@ -21,9 +19,5 @@ export class AdderChooserComponent {
 
     startMeal() {
         this.meal.emit('new meal');
-    }
-
-    addFood() {
-        this.food.emit('add food');
     }
 }

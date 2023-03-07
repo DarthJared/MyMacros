@@ -35,4 +35,23 @@
     display: inline-block;
     margin-right: 10px;
     margin-top: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #444444;
+}
+
+.action-button-wrapper {
+    width: 100%;
+    text-align: right;
+}
+
+.start-meal-icon {
+    color: #69B1F5;
+}
+
+.cancel-icon {
+    color: #f56969;
 }

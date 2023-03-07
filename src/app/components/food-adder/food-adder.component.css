@@ -43,10 +43,16 @@
     display: inline-block;
     margin-right: 10px;
     margin-top: 0px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #444444;
 }
 
 #new-food-button { 
-    margin-bottom: 20px;
+    color: #69B1F5;
 }
 
 .food-serving-size {
@@ -92,4 +98,21 @@
 
 .modal-actions {
     margin-top: 25px;
+}
+
+.add-food-icon {
+    color: #69B1F5;
+}
+
+.cancel-icon {
+    color: #f56969;
+}
+
+#done-button {
+    color: #69B1F5;
+}
+
+.action-button-wrapper {
+    width: 100%;
+    text-align: right;
 }

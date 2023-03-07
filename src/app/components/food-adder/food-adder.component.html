@@ -42,22 +42,34 @@
                     <label for="protein" class="input-label">Protein (g):</label>
                     <input type="number" id="protein" name="protein" [(ngModel)]="protein" class="food-num">
                 </div>
-                <div>
+                <div class="action-button-wrapper">
                     <div class="action-button">
-                        <button (click)="storeFood()">Add</button>
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="add food" 
+                            fontIcon="done" 
+                            class="add-food-icon"
+                            (click)="storeFood()">
+                        </mat-icon>
                     </div>
                     <div class="action-button">
-                        <button (click)="cancelNewFood()">Cancel</button>
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="cancel add food" 
+                            fontIcon="close" 
+                            class="cancel-icon"
+                            (click)="cancelNewFood()">
+                        </mat-icon>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal-actions">
-            <div class="action-button">
-                <button (click)="closeModal()">Done</button>
+        <div class="modal-actions action-button-wrapper">
+            <div id="done-button" class="action-button" (click)="closeModal()">
+                Done
             </div>
-            <div id="new-food-button" class="action-button" *ngIf="!newFoodShowing">
-                <button (click)="newFoodClicked()">Add New Food</button>
+            <div id="new-food-button" class="action-button" *ngIf="!newFoodShowing" (click)="newFoodClicked()">
+                Add New Food
             </div>
         </div>
     </div>

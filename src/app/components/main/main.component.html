@@ -13,7 +13,9 @@
     [food]="daysMeals"
     [existingFood]="storedFoods"
     (removeMeal)="removeMeal($event)"
-    (removeFood)="removeFood($event)">
+    (removeFood)="removeFood($event)"
+    (updateFood)="updateFood($event)"
+    (addFoodToMeal)="displayFoodForMeal($event)">
 </today-food>
 
 <add-button 
@@ -30,9 +32,7 @@
     id="adder-chooser" 
     *ngIf="adderChooserShowing" 
     (close)="closeAllModals()" 
-    (meal)="displayAdderModal()" 
-    (food)="displayFood()" 
-    [mealExists]="mealExists">
+    (meal)="displayAdderModal()">
 </adder-chooser>
 <food-adder 
     id="food-adder" 

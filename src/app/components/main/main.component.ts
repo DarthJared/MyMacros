@@ -64,7 +64,8 @@ export class MainComponent {
         date: '01-01-1900',
         meals: []
     };
-    mealExists: boolean = false;
+
+    foodAdderMealIndex: number = -1;
 
     storedFoods: StoredFoodCatalogue = {};
 
@@ -90,9 +91,6 @@ export class MainComponent {
 
     loadMeals() {
         let todaysMeals = this.storageService.getDaysMeals(this.observedDay)
-        if (todaysMeals.length > 0) {
-            this.mealExists = true;
-        }
         
         this.daysMeals = {
             date: this.observedDay,
@@ -162,13 +160,11 @@ export class MainComponent {
         };
 
         this.daysMeals.meals.push(newMeal)
-        this.mealExists = true;
         this.closeAllModals();
     }
 
     addFood(foodInfo: Consumption) {
-        let lastMealIndex = this.daysMeals.meals.length - 1;
-        this.daysMeals.meals[lastMealIndex].food.push(foodInfo);
+        this.daysMeals.meals[this.foodAdderMealIndex].food.push(foodInfo);
 
         this.closeAllModals();
         this.updateRemaining();
@@ -195,6 +191,12 @@ export class MainComponent {
     }
 
     displayFood() {
+        this.closeAllModals()
+        this.adderFoodShowing = true;
+    }
+
+    displayFoodForMeal(mealIndex: number) {
+        this.foodAdderMealIndex = mealIndex;
         this.closeAllModals()
         this.adderFoodShowing = true;
     }
@@ -274,10 +276,15 @@ export class MainComponent {
     }
 
     updateDate(date: Date) {
-        console.log(date)
         this.observedDay = date.toDateString();
         this.loadMeals();
         this.updateDaysGoals();
+        this.updateRemaining();
+    }
+
+    updateFood(updatedMeals: DaysMeals) {
+        this.daysMeals = updatedMeals;
+        this.store();
         this.updateRemaining();
     }
 }

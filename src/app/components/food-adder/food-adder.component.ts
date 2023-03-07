@@ -98,6 +98,5 @@ export class FoodAdderComponent {
 
     quantityChanged(event: any) {
         this.selectedFoodQuantity = event.target.valueAsNumber;
-        console.log(this.selectedFoodQuantity)
     }
 }
