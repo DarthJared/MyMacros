@@ -54,7 +54,7 @@
 }
 
 .editor-input {
-    width: 45px;
+    width: 30px;
 }
 
 .save-edit-icon {
@@ -81,4 +81,27 @@
 
 .add-food-text {
     cursor: pointer;
+}
+
+.food-name-data {
+    display: inline-block;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+    max-width: 200px;
+    white-space: nowrap;
+}
+
+.serving-units-data {
+    display: inline-block;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    max-width: 75px;
+    margin-left: 5px;
+    white-space: nowrap;
+}
+
+.inline {
+    display: inline-block;
+    overflow-y: hidden;
 }

@@ -27,7 +27,8 @@
                         </span>
                         <span class="food-name" *ngIf="!foodEditing">{{food.name}}</span>
                         <input type="text" class="food-name-input" [(ngModel)]="food.name" *ngIf="foodEditing">
-                        <span class="food-serving-size" *ngIf="!foodEditing">({{food.servingSize}} {{food.servingUnits}})</span>
+                        <span class="food-serving-size" *ngIf="!foodEditing">({{food.servingSize}} {{food.servingUnits}}</span>
+                        <span class="inline">)</span>
                         <input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingSize">
                         <input type="text" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingUnits">
                         <br>

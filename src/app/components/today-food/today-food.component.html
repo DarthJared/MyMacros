@@ -21,17 +21,25 @@
                 </tr>
             </table>
             <div class="food-item" *ngFor="let food of meal.food; let f = index;" (click)="toggleOpened(m, f)">
-                <span>{{existingFood[food.id].name}} (<span *ngIf="!showEditing(m, f)">{{food.quantity}}</span><span *ngIf="showEditing(m, f)">
-                    <input type="number" class="editor-input" (click)="doNothing($event)" [(ngModel)]="food.quantity">
-                </span> {{existingFood[food.id].servingUnits}}<span *ngIf="showEditing(m, f)">
-                    <mat-icon 
-                        aria-hidden="false" 
-                        aria-label="save edit" 
-                        fontIcon="done" 
-                        class="save-edit-icon"
-                        (click)="saveEdit($event)">
-                    </mat-icon>
-                </span>)</span> 
+                <span class="inline">
+                        <span class="food-name-data">{{existingFood[food.id].name}}</span> 
+                        <span class="inline">(</span>
+                        <span *ngIf="!showEditing(m, f)" class="inline">{{food.quantity}}</span>
+                        <span class="inline" *ngIf="showEditing(m, f)">
+                            <input type="number" class="editor-input" (click)="doNothing($event)" [(ngModel)]="food.quantity">
+                        </span> 
+                        <span class="serving-units-data">{{existingFood[food.id].servingUnits}}</span>
+                        <span *ngIf="showEditing(m, f)">
+                            <mat-icon 
+                                aria-hidden="false" 
+                                aria-label="save edit" 
+                                fontIcon="done" 
+                                class="save-edit-icon"
+                                (click)="saveEdit($event)">
+                            </mat-icon>
+                        </span>
+                        <span class="inline">)</span>
+                    </span> 
                 <div class="food-details">{{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} calories | {{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} carbs (g) | {{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} protein (g)</div>
                 <div *ngIf="showOpened(m, f)">
                     <div class="food-editor">
