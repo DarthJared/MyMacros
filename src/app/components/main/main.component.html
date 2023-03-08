@@ -12,6 +12,7 @@
     id="today-food" 
     [food]="daysMeals"
     [existingFood]="storedFoods"
+    [activeMacros]="activeMacros"
     (removeMeal)="removeMeal($event)"
     (removeFood)="removeFood($event)"
     (updateFood)="updateFood($event)"
@@ -41,7 +42,8 @@
     (food)="addFood($event)"
     (store)="storeNewFood($event)"
     (updateFoods)="updateFoods($event)"
-    [existingFoods]="storedFoods">
+    [existingFoods]="storedFoods"
+    [activeMacros]="activeMacros">
 </food-adder>
 <goal-editor 
     id="goal-editor" 
@@ -55,7 +57,8 @@
     id="settings"
     *ngIf="settingsShowing"
     (close)="closeAllModals()"
-    (clear)="settingsClear($event)">
+    (clear)="settingsClear($event)"
+    [macrosSelected]="activeMacros">
 </settings>
 <confirm-modal
     id="confirm-modal"
@@ -73,11 +76,15 @@
     id="footer" 
     [caloriesGoal]="caloriesGoal" 
     [carbsGoal]="carbsGoal" 
+    [fatGoal]="fatGoal"
     [proteinGoal]="proteinGoal" 
     [caloriesRemaining]="caloriesLeft" 
     [carbsRemaining]="carbsLeft" 
+    [fatRemaining]="fatLeft"
     [proteinRemaining]="proteinLeft"
+    [activeMacros]="activeMacros"
     (calories)="editCalories()"
     (carbs)="editCarbs()"
+    (fat)="editFat()"
     (protein)="editProtein()">
 </footer>

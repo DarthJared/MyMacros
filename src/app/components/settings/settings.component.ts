@@ -4,6 +4,7 @@ import { StorageService } from 'src/app/services/storage.service';
 type Goals = {
     calories: number
     carbs: number
+    fat: number
     protein: number
 }
 
@@ -17,6 +18,14 @@ type WeekPlan = {
     Saturday: Goals
 }
 
+
+type MacroSelection = {
+    calories: boolean
+    carbs: boolean
+    fat: boolean
+    protein: boolean
+}
+
 @Component({
   selector: 'settings',
   templateUrl: './settings.component.html',
@@ -25,6 +34,13 @@ type WeekPlan = {
 export class SettingsComponent {
     @Output() close = new EventEmitter<string>();
     @Output() clear = new EventEmitter<string>();
+
+    @Input() macrosSelected: MacroSelection = {
+        calories: true,
+        carbs: true,
+        fat: false,
+        protein: true
+    };
 
     weekPlan: WeekPlan;
     activeTab: string = 'Defaults';
@@ -39,40 +55,52 @@ export class SettingsComponent {
                 Sunday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Monday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Tuesday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Wednesday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Thursday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Friday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
                 Saturday: {
                     calories: 0,
                     carbs: 0,
+                    fat: 0,
                     protein: 0
                 },
             }
         }
+    }
+
+    saveMacros() {
+        this.storageService.storeMacros(this.macrosSelected);
+        this.close.emit('close');
     }
 
     setActiveTab(tabName: string) {
@@ -102,6 +130,10 @@ export class SettingsComponent {
 
     clearGoals() {
         this.clear.emit('goals');
+    }
+
+    clearMacros() {
+        this.clear.emit('macros');
     }
 
     clearAll() {

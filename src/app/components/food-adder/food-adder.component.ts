@@ -1,14 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
-type Food = {
-    name: string
-    servingSize: number
-    servingUnits: string
-    caloriesPerServing: number
-    carbsPerServing: number
-    proteinPerServing: number
-}
-
 type StorableFood = {
     id: number
     name: string
@@ -16,8 +7,16 @@ type StorableFood = {
     servingUnits: string
     caloriesPerServing: number
     carbsPerServing: number
+    fatPerServing: number
     proteinPerServing: number
-  }
+}
+
+type MacroSelection = {
+    calories: boolean
+    carbs: boolean
+    fat: boolean
+    protein: boolean
+}
 
 @Component({
   selector: 'food-adder',
@@ -31,6 +30,12 @@ export class FoodAdderComponent {
     @Output() updateFoods = new EventEmitter<{ [id: number]: StorableFood }>();
 
     @Input() existingFoods: { [id: number]: StorableFood } = {};
+    @Input() activeMacros: MacroSelection = {
+        calories: true,
+        carbs: true,
+        fat: false,
+        protein: true
+    };
 
     newFoodShowing: boolean = false;
     selectedFoodId: number = 0;
@@ -45,6 +50,7 @@ export class FoodAdderComponent {
     servingSizeUnits: string = 'g';
     calories: number = 0;
     carbs: number = 0;
+    fat: number = 0;
     protein: number = 0;
 
     constructor(private ref: ChangeDetectorRef) {
@@ -77,6 +83,7 @@ export class FoodAdderComponent {
             servingUnits: this.servingSizeUnits,
             caloriesPerServing: this.calories,
             carbsPerServing: this.carbs,
+            fatPerServing: this.fat,
             proteinPerServing: this.protein
         });
 

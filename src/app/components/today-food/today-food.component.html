@@ -40,7 +40,23 @@
                         </span>
                         <span class="inline">)</span>
                     </span> 
-                <div class="food-details">{{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} calories | {{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} carbs (g) | {{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} protein (g)</div>
+                <div class="food-details">
+                    <ng-container *ngIf="activeMacros.calories">
+                        {{existingFood[food.id].caloriesPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} calories 
+                        <span class="food-info-divider" *ngIf="activeMacros.carbs || activeMacros.fat || activeMacros.protein">|</span> 
+                    </ng-container>
+                    <ng-container *ngIf="activeMacros.carbs">
+                        {{existingFood[food.id].carbsPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} carbs (g) 
+                        <span class="food-info-divider" *ngIf="activeMacros.fat || activeMacros.protein">|</span>
+                    </ng-container>
+                    <ng-container *ngIf="activeMacros.fat">
+                        {{existingFood[food.id].fatPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} fat (g) 
+                        <span class="food-info-divider" *ngIf="activeMacros.protein">|</span> 
+                    </ng-container>
+                    <ng-container *ngIf="activeMacros.protein">
+                        {{existingFood[food.id].proteinPerServing * food.quantity / existingFood[food.id].servingSize | roundOnePlace}} protein (g)
+                    </ng-container>
+                </div>
                 <div *ngIf="showOpened(m, f)">
                     <div class="food-editor">
                         <mat-icon 

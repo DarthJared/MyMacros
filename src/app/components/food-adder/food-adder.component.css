@@ -58,11 +58,14 @@
 .food-serving-size {
     display: inline-block;
     font-size: 14px;
-    margin-left: 5px;
     max-width: 85px;
     overflow-x: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.serving-start {
+    margin-left: 5px;
 }
 
 .food-info {
@@ -162,4 +165,9 @@
     display: inline-block;
     overflow-x: hidden;
     font-size: 14px;
+}
+
+.food-info-num {
+    margin-left: 3px;
+    margin-right: 3px;
 }

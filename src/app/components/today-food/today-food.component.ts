@@ -1,5 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+type MacroSelection = {
+    calories: boolean
+    carbs: boolean
+    fat: boolean
+    protein: boolean
+}
+
 @Component({
   selector: 'today-food',
   templateUrl: './today-food.component.html',
@@ -8,6 +15,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class TodayFoodComponent {
     @Input() food: any = null;
     @Input() existingFood: any = null;
+    @Input() activeMacros: MacroSelection = {
+        calories: true,
+        carbs: true,
+        fat: false,
+        protein: true
+    };
     @Output() removeMeal = new EventEmitter<number>();
     @Output() removeFood = new EventEmitter<{mealIndex: number, foodIndex: number}>();
     @Output() updateFood = new EventEmitter<any>();
@@ -44,7 +57,8 @@ export class TodayFoodComponent {
     setEditing(mealIndex: number, foodIndex: number, event: any) {
         this.editingIndex.mealIndex = mealIndex;
         this.editingIndex.foodIndex = foodIndex;
-
+        this.expandedIndexes = {};
+        
         event.stopPropagation();
     }
 

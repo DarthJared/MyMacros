@@ -31,11 +31,19 @@ type StorableFood = {
     servingUnits: string
     caloriesPerServing: number
     carbsPerServing: number
+    fatPerServing: number
     proteinPerServing: number
 }
 
 type StoredFoodCatalogue = {
     [id: number]: StorableFood
+}
+
+type MacroSelection = {
+    calories: boolean
+    carbs: boolean
+    fat: boolean
+    protein: boolean
 }
 
 @Component({
@@ -73,10 +81,19 @@ export class MainComponent {
 
     caloriesGoal: number = 0;
     carbsGoal: number = 0;
+    fatGoal: number = 0;
     proteinGoal: number = 0;
     caloriesLeft: number = 0;
     carbsLeft: number = 0;
+    fatLeft: number = 0;
     proteinLeft: number = 0;
+
+    activeMacros: MacroSelection = {
+        calories: true,
+        carbs: true,
+        fat: false,
+        protein: true
+    };
     
     constructor(private storageService: StorageService) {
         this.loadStoredFoods();
@@ -85,8 +102,24 @@ export class MainComponent {
         this.observedDay = today.toDateString();
 
         this.loadMeals();
+        this.loadActiveMacros();
         this.updateDaysGoals();
         this.updateRemaining();
+    }
+
+    loadActiveMacros() {
+        const loadedMacros = this.storageService.getMacros();
+        if (loadedMacros) {
+            this.activeMacros = loadedMacros;
+        }
+        else {
+            this.activeMacros = {
+                calories: true,
+                carbs: true,
+                fat: false,
+                protein: true
+            };
+        }
     }
 
     loadMeals() {
@@ -106,6 +139,7 @@ export class MainComponent {
 
         this.caloriesGoal = goalInfo.calories;
         this.carbsGoal = goalInfo.carbs;
+        this.fatGoal = goalInfo.fat;
         this.proteinGoal = goalInfo.protein;
     }
 
@@ -119,6 +153,7 @@ export class MainComponent {
             date: this.daysMeals.date,
             calories: this.caloriesGoal,
             carbs: this.carbsGoal,
+            fat: this.fatGoal,
             protein: this.proteinGoal
         });
     }
@@ -126,6 +161,7 @@ export class MainComponent {
     updateRemaining() {
         let caloriesLeft = this.caloriesGoal;
         let carbsLeft = this.carbsGoal;
+        let fatLeft = this.fatGoal;
         let proteinLeft = this.proteinGoal;
 
         for (const meal of this.daysMeals.meals) {
@@ -135,18 +171,21 @@ export class MainComponent {
 
                 caloriesLeft -= foodInfo.caloriesPerServing * servingPortion;
                 carbsLeft -= foodInfo.carbsPerServing * servingPortion;
+                fatLeft -= foodInfo.fatPerServing * servingPortion;
                 proteinLeft -= foodInfo.proteinPerServing * servingPortion;
             }
         }
 
         this.caloriesLeft = caloriesLeft;
         this.carbsLeft = carbsLeft;
+        this.fatLeft = fatLeft;
         this.proteinLeft = proteinLeft;
     }
 
     updateGoals(goals: any) {
         this.caloriesGoal = goals.calories;
         this.carbsGoal = goals.carbs;
+        this.fatGoal = goals.fat;
         this.proteinGoal = goals.protein;
 
         this.updateRemaining();
@@ -213,6 +252,12 @@ export class MainComponent {
         this.goalEditorShowing = true;
     }
 
+    editFat() {
+        this.goalEditorAmount = this.fatGoal;
+        this.goalEditorName = 'Fat';
+        this.goalEditorShowing = true;
+    }
+
     editProtein() {
         this.goalEditorAmount = this.proteinGoal;
         this.goalEditorName = 'Protein';
@@ -226,6 +271,9 @@ export class MainComponent {
                 break;
             case 'Carbs':
                 this.carbsGoal = goalInfo.goal;
+                break;
+            case 'Fat':
+                this.fatGoal = goalInfo.goal;
                 break;
             case 'Protein':
                 this.proteinGoal = goalInfo.goal;
@@ -313,6 +361,10 @@ export class MainComponent {
                 this.storageService.clearItem('goals');
                 this.storageService.clearItem('weekGoals');
                 break;
+            case 'macros':
+                this.storageService.clearItem('macros');
+                this.loadActiveMacros();
+                break;
             case 'all':
                 this.clearMealsData();
                 this.clearGoalsData();
@@ -325,6 +377,7 @@ export class MainComponent {
     clearGoalsData() {
         this.caloriesGoal = 0;
         this.carbsGoal = 0;
+        this.fatGoal = 0;
         this.proteinGoal = 0;
     }
 

@@ -37,6 +37,7 @@ export class StorageService {
     allGoals[goals.date] = {
         calories: goals.calories,
         carbs: goals.carbs,
+        fat: goals.fat,
         protein: goals.protein
     };
     localStorage.setItem('goals', JSON.stringify(allGoals));
@@ -84,6 +85,7 @@ export class StorageService {
     return {
         calories: 0,
         carbs: 0,
+        fat: 0,
         protein: 0
     }
   }
@@ -113,6 +115,15 @@ export class StorageService {
     localStorage.setItem('foods', JSON.stringify(foods));
   }
 
+  public getMacros() {
+    const macros = localStorage.getItem('macros');
+    return macros ? JSON.parse(macros) : null;
+  }
+
+  public storeMacros(macros: any) {
+    localStorage.setItem('macros', JSON.stringify(macros));
+  }
+
   public clearItem(key: string) {
     localStorage.removeItem(key);
   }
@@ -129,5 +140,6 @@ type StorableFood = {
   servingUnits: string
   caloriesPerServing: number
   carbsPerServing: number
+  fatPerServing: number
   proteinPerServing: number
 }

@@ -49,7 +49,11 @@
 }
 
 .goal-input {
-    width: 50px;
+    width: 38px;
+}
+
+.calorie-input {
+    width: 48px;
 }
 
 .weekday-label {
@@ -95,4 +99,23 @@
     padding: 10px;
     cursor: pointer;
     color: #69B1F5;
+}
+
+#macro-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.macro-check-label {
+    margin-left: 5px;
+}
+
+.macro-check-wrapper {
+    margin-bottom: 20px;
+}
+
+th {
+    font-weight: normal;
+    font-size: 12px;
 }

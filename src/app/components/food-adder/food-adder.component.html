@@ -27,12 +27,29 @@
                         </span>
                         <span class="food-name" *ngIf="!foodEditing">{{food.name}}</span>
                         <input type="text" class="food-name-input" [(ngModel)]="food.name" *ngIf="foodEditing">
-                        <span class="food-serving-size" *ngIf="!foodEditing">({{food.servingSize}} {{food.servingUnits}}</span>
-                        <span class="inline">)</span>
+                        <span class="inline serving-start">(</span>
+                        <span class="food-serving-size" *ngIf="!foodEditing">{{food.servingSize}} {{food.servingUnits}}</span>
                         <input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingSize">
                         <input type="text" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.servingUnits">
+                        <span class="inline">)</span>
                         <br>
-                        <span class="food-info"><span *ngIf="!foodEditing">{{food.caloriesPerServing}}</span><input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.caloriesPerServing"> calories, <br *ngIf="foodEditing"><span *ngIf="!foodEditing">{{food.carbsPerServing}}</span><input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.carbsPerServing"> carbs, <br *ngIf="foodEditing"><span *ngIf="!foodEditing">{{food.proteinPerServing}}</span><input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.proteinPerServing"> protein</span>
+                        <span class="food-info">
+                            <span class="food-info-num" *ngIf="!foodEditing && activeMacros.calories">{{food.caloriesPerServing}}</span>
+                            <input type="number" class="food-num" *ngIf="foodEditing" [(ngModel)]="food.caloriesPerServing">
+                            <ng-container *ngIf="activeMacros.calories || foodEditing">calories<ng-container *ngIf="foodEditing || activeMacros.carbs || activeMacros.fat || activeMacros.protein">,</ng-container></ng-container>
+                            <br *ngIf="foodEditing">
+                            <span class="food-info-num" *ngIf="!foodEditing && activeMacros.carbs">{{food.carbsPerServing}}</span>
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.carbsPerServing"> 
+                            <ng-container *ngIf="activeMacros.carbs || foodEditing">carbs<ng-container *ngIf="foodEditing || activeMacros.fat || activeMacros.protein">,</ng-container></ng-container>
+                            <br *ngIf="foodEditing">
+                            <span class="food-info-num" *ngIf="!foodEditing && activeMacros.fat">{{food.fatPerServing}}</span>
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.fatPerServing"> 
+                            <ng-container *ngIf="activeMacros.fat || foodEditing">fat<ng-container *ngIf="foodEditing || activeMacros.protein">,</ng-container></ng-container>
+                            <br *ngIf="foodEditing">
+                            <span class="food-info-num" *ngIf="!foodEditing && activeMacros.protein">{{food.proteinPerServing}}</span>
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.proteinPerServing"> 
+                            <ng-container *ngIf="activeMacros.protein || foodEditing">protein</ng-container>
+                        </span>
                     </div>
                     <div *ngIf="selectedFoodId.toString() == food.id" class="quantity-chooser">
                         <input type="number" class="food-num quantity-num" [ngModel]="food.servingSize" (change)="quantityChanged($event)">
@@ -65,6 +82,10 @@
                 <div class="food-field">
                     <label for="carbs" class="input-label">Carbs (g):</label>
                     <input type="number" id="carbs" name="carbs" [(ngModel)]="carbs" class="food-num">
+                </div>
+                <div class="food-field">
+                    <label for="fat" class="input-label">Fat (g):</label>
+                    <input type="number" id="fat" name="fat" [(ngModel)]="fat" class="food-num">
                 </div>
                 <div class="food-field">
                     <label for="protein" class="input-label">Protein (g):</label>

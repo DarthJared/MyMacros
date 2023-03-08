@@ -1,15 +1,19 @@
 <div id="bottom-bar">
     <table id="remaining-table">
         <tr>
-            <td class="remaining-button" (click)="caloriesClicked()">
+            <td class="remaining-button" [style.width.%]="buttonWidthPercent()" (click)="caloriesClicked()" *ngIf="activeMacros.calories">
                 <div class="units-header">calories</div>
                 <span class="remaining-amount">{{caloriesRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{caloriesGoal}}</span>
             </td>
-            <td class="remaining-button" (click)="carbsClicked()">
+            <td class="remaining-button" [style.width.%]="buttonWidthPercent()" (click)="carbsClicked()" *ngIf="activeMacros.carbs">
                 <div class="units-header">carbs (g)</div>
                 <span class="remaining-amount">{{carbsRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{carbsGoal}}</span>
             </td>
-            <td class="remaining-button" (click)="proteinClicked()">
+            <td class="remaining-button" [style.width.%]="buttonWidthPercent()" (click)="fatClicked()" *ngIf="activeMacros.fat">
+                <div class="units-header">fat (g)</div>
+                <span class="remaining-amount">{{fatRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{fatGoal}}</span>
+            </td>
+            <td class="remaining-button" [style.width.%]="buttonWidthPercent()" (click)="proteinClicked()" *ngIf="activeMacros.protein">
                 <div class="units-header">protein (g)</div>
                 <span class="remaining-amount">{{proteinRemaining | roundOnePlace}}</span><span class="spacer">/</span><span class="goal-amount">{{proteinGoal}}</span>
             </td>

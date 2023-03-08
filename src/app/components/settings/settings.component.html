@@ -17,91 +17,113 @@
                 <table id="defaults-table">
                     <tr>
                         <th>Day</th>
-                        <th>Calories</th>
-                        <th>Carbs</th>
-                        <th>Protein</th>
+                        <th *ngIf="macrosSelected.calories">Calories</th>
+                        <th *ngIf="macrosSelected.carbs">Carbs</th>
+                        <th *ngIf="macrosSelected.fat">Fat</th>
+                        <th *ngIf="macrosSelected.protein">Protein</th>
                     </tr>
                     <tr>
                         <td class="weekday-label">Sunday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Sunday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Sunday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Monday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Monday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Monday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Tuesday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Tuesday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Tuesday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Wednesday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Wednesday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Wednesday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Thursday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Thursday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Thursday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Friday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Friday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Friday.protein">
                         </td>
                     </tr>
                     <tr>
                         <td class="weekday-label">Saturday</td>
-                        <td class="goal-cell calories-cell">
-                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.calories">
+                        <td class="goal-cell calories-cell" *ngIf="macrosSelected.calories">
+                            <input type="number" class="calorie-input" [(ngModel)]="weekPlan.Saturday.calories">
                         </td>
-                        <td class="goal-cell carbs-cell">
+                        <td class="goal-cell carbs-cell" *ngIf="macrosSelected.carbs">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.carbs">
                         </td>
-                        <td class="goal-cell protein-cell">
+                        <td class="goal-cell fat-cell" *ngIf="macrosSelected.fat">
+                            <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.fat">
+                        </td>
+                        <td class="goal-cell protein-cell" *ngIf="macrosSelected.protein">
                             <input type="number" class="goal-input" [(ngModel)]="weekPlan.Saturday.protein">
                         </td>
                     </tr>
@@ -126,12 +148,51 @@
                 </div>
             </div>
             <div class="tab-content" *ngIf="activeTab == 'Macros'">
-                Which Macros do you want to track?
+                <div id="macro-title">
+                    Select Macros to Actively Track
+                </div>
+                <div id="macro-list">
+                    <div class="macro-check-wrapper">
+                        <input type="checkbox" id="calories-check" name="calories-check" [(ngModel)]="macrosSelected.calories">
+                        <label for="calories-check" class="macro-check-label">Calories</label>
+                    </div>
+                    <div class="macro-check-wrapper">
+                        <input type="checkbox" id="carbs-check" name="carbs-check" [(ngModel)]="macrosSelected.carbs">
+                        <label for="carbs-check" class="macro-check-label">Carbs</label>
+                    </div>
+                    <div class="macro-check-wrapper">
+                        <input type="checkbox" id="fat-check" name="fat-check" [(ngModel)]="macrosSelected.fat">
+                        <label for="fat-check" class="macro-check-label">Fat</label>
+                    </div>
+                    <div class="macro-check-wrapper">
+                        <input type="checkbox" id="protein-check" name="protein-check" [(ngModel)]="macrosSelected.protein">
+                        <label for="protein-check" class="macro-check-label">Protein</label>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <div class="action-button" (click)="saveMacros()">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="update" 
+                            fontIcon="done" 
+                            id="confirm-button">
+                        </mat-icon>
+                    </div>
+                    <div class="action-button" (click)="closeModal()">
+                        <mat-icon 
+                            aria-hidden="false" 
+                            aria-label="cancel update" 
+                            fontIcon="close" 
+                            id="cancel-button">
+                        </mat-icon>
+                    </div>
+                </div>
             </div>
             <div class="tab-content" *ngIf="activeTab == 'Other'">
                 <div class="action-button-listed" (click)="clearMeals()">Clear Saved Meals</div>
                 <div class="action-button-listed" (click)="clearFoodsMeals()">Clear Saved Foods and Meals</div>
                 <div class="action-button-listed" (click)="clearGoals()">Clear Saved Goals</div>
+                <div class="action-button-listed" (click)="clearMacros()">Clear Macro Settings</div>
                 <div class="action-button-listed" (click)="clearAll()">Clear All</div>
                 <div class="modal-actions">
                     <div class="action-button" (click)="closeModal()">
