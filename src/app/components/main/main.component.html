@@ -58,6 +58,7 @@
     *ngIf="settingsShowing"
     (close)="closeAllModals()"
     (clear)="settingsClear($event)"
+    (import)="importData($event)"
     [macrosSelected]="activeMacros">
 </settings>
 <confirm-modal

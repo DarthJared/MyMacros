@@ -10,7 +10,11 @@ export class StorageService {
   public saveMeals(meals: any) {
     let allMeals = this.getMeals();
     allMeals[meals.date] = meals.meals;
-    localStorage.setItem('meals', JSON.stringify(allMeals));
+    this.saveAllMeals(allMeals);
+  }
+
+  public saveAllMeals(meals: any) {
+    localStorage.setItem('meals', JSON.stringify(meals));
   }
 
   public getMeals() {
@@ -40,7 +44,11 @@ export class StorageService {
         fat: goals.fat,
         protein: goals.protein
     };
-    localStorage.setItem('goals', JSON.stringify(allGoals));
+    this.saveAllGoals(allGoals);
+  }
+
+  public saveAllGoals(goals: any) {
+    localStorage.setItem('goals', JSON.stringify(goals));
   }
 
   public getGoals() {

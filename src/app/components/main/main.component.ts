@@ -400,4 +400,32 @@ export class MainComponent {
         this.loadStoredFoods();
         this.updateRemaining();
     }
+
+    importData(importInfo: { type: string, value: any }) {
+        switch(importInfo.type) {
+            case 'macros':
+                this.storageService.storeMacros(JSON.parse(importInfo.value));
+                break;
+            case 'goals':
+                this.storageService.saveAllGoals(JSON.parse(importInfo.value));
+                break;
+            case 'meals':
+                this.storageService.saveAllMeals(JSON.parse(importInfo.value));
+                break;
+            case 'weekGoals':
+                this.storageService.saveWeekGoals(JSON.parse(importInfo.value));
+                break;
+            case 'foods':
+                this.storageService.updateFoods(JSON.parse(importInfo.value));
+                break;
+        }
+
+        this.loadStoredFoods();
+        this.loadMeals();
+        this.loadActiveMacros();
+        this.updateDaysGoals();
+        this.updateRemaining();
+
+        this.closeAllModals();
+    } 
 }

@@ -34,6 +34,7 @@ type MacroSelection = {
 export class SettingsComponent {
     @Output() close = new EventEmitter<string>();
     @Output() clear = new EventEmitter<string>();
+    @Output() import = new EventEmitter<{ type: string, value: any }>();
 
     @Input() macrosSelected: MacroSelection = {
         calories: true,
@@ -44,9 +45,14 @@ export class SettingsComponent {
 
     weekPlan: WeekPlan;
     activeTab: string = 'Defaults';
+    importType: string = 'macros';
+    importValue: string;
 
     constructor(private storageService: StorageService) {
-        const loadedWeekPlan = storageService.getWeekGoals()
+        const loadedMacros = this.storageService.getMacros();
+        this.importValue = JSON.stringify(loadedMacros);
+
+        const loadedWeekPlan = this.storageService.getWeekGoals()
         if (loadedWeekPlan) {
             this.weekPlan = loadedWeekPlan;
         }
@@ -138,5 +144,34 @@ export class SettingsComponent {
 
     clearAll() {
         this.clear.emit('all');
+    }
+
+    importData() {
+        this.import.emit({
+            type: this.importType,
+            value: this.importValue
+        });
+    }
+
+    importToChanged(toLoadEvent: any) {
+        let loaded = '';
+        switch(toLoadEvent.target.value) {
+            case 'macros':
+                loaded = JSON.stringify(this.storageService.getMacros());
+                break;
+            case 'goals':
+                loaded = JSON.stringify(this.storageService.getGoals());
+                break;
+            case 'meals':
+                loaded = JSON.stringify(this.storageService.getMeals());
+                break;
+            case 'weekGoals':
+                loaded = JSON.stringify(this.storageService.getWeekGoals());
+                break;
+            case 'foods':
+                loaded = JSON.stringify(this.storageService.getSavedFoods())
+                break;
+        }
+        this.importValue = loaded;
     }
 }

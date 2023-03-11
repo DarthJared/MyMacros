@@ -189,11 +189,34 @@
                 </div>
             </div>
             <div class="tab-content" *ngIf="activeTab == 'Other'">
-                <div class="action-button-listed" (click)="clearMeals()">Clear Saved Meals</div>
-                <div class="action-button-listed" (click)="clearFoodsMeals()">Clear Saved Foods and Meals</div>
-                <div class="action-button-listed" (click)="clearGoals()">Clear Saved Goals</div>
-                <div class="action-button-listed" (click)="clearMacros()">Clear Macro Settings</div>
-                <div class="action-button-listed" (click)="clearAll()">Clear All</div>
+                <div class="scrollable-content">
+                    <div id="importer">
+                        <label for="importer-input" id="importer-label">Import</label>
+                        <select name="importer-input" id="importer-input" [(ngModel)]="importType" (change)="importToChanged($event)">
+                            <option value="macros">macros</option>
+                            <option value="goals">goals</option>
+                            <option value="meals">meals</option>
+                            <option value="weekGoals">weekGoals</option>
+                            <option value="foods">foods</option>
+                        </select>
+                        <br>
+                        <textarea id="importer-area" [(ngModel)]="importValue"></textarea>
+                        <br>
+                        <div class="action-button" id="import-button" (click)="importData()">
+                            <mat-icon 
+                                aria-hidden="false" 
+                                aria-label="update" 
+                                fontIcon="done" 
+                                id="confirm-button">
+                            </mat-icon>
+                        </div>
+                    </div>
+                    <div class="action-button-listed" (click)="clearMeals()">Clear Saved Meals</div>
+                    <div class="action-button-listed" (click)="clearFoodsMeals()">Clear Saved Foods and Meals</div>
+                    <div class="action-button-listed" (click)="clearGoals()">Clear Saved Goals</div>
+                    <div class="action-button-listed" (click)="clearMacros()">Clear Macro Settings</div>
+                    <div class="action-button-listed" (click)="clearAll()">Clear All</div>
+                </div>
                 <div class="modal-actions">
                     <div class="action-button" (click)="closeModal()">
                         <mat-icon 

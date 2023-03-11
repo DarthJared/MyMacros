@@ -84,6 +84,12 @@
     color: #69B1F5;
 }
 
+#import-button {
+    color: #69B1F5;
+    margin-left: 80%;
+    margin-top: -5px;
+}
+
 #cancel-button {
     color: #f56969;
 }
@@ -118,4 +124,22 @@
 th {
     font-weight: normal;
     font-size: 12px;
+}
+
+#importer-area {
+    width: 90%;
+    height: 100px;
+}
+
+#importer-label {
+    margin-right: 10px;
+}
+
+#importer-input {
+    margin-bottom: 10px;
+}
+
+.scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
 }
