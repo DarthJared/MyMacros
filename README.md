@@ -6,6 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Deploying to github pages
+
+Run `ng build --configuration production --base-href "https://darthjared.github.io/MyMacros/"`. Then run `npx angular-cli-ghpages --dir=dist/my-macros`.  Navigate to https://darthjared.github.io/MyMacros/
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
