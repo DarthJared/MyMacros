@@ -38,6 +38,48 @@ export class TodayFoodComponent {
         return false;
     }
 
+    getMealInfo(mealIndex: number) {
+        const mealsToCalc = this.food.meals[mealIndex];
+        let calories = 0;
+        let carbs = 0;
+        let fat = 0;
+        let protein = 0;
+
+        for (let food of mealsToCalc.food) {
+            const loadedFood = this.existingFood[food.id];
+            const servingPortion = food.quantity / loadedFood.servingSize;
+            calories += loadedFood.caloriesPerServing * servingPortion;
+            carbs += loadedFood.carbsPerServing * servingPortion;
+            fat += loadedFood.fatPerServing * servingPortion;
+            protein += loadedFood.proteinPerServing *servingPortion;
+        }
+
+        let display = '(';
+        if (this.activeMacros.calories) {
+            display += `${calories} cal`;
+            if (this.activeMacros.carbs || this.activeMacros.fat || this.activeMacros.protein) {
+                display += ' | ';
+            }
+        }
+        if (this.activeMacros.carbs) {
+            display += `${calories} carb`;
+            if (this.activeMacros.fat || this.activeMacros.protein) {
+                display += ' | ';
+            }
+        }
+        if (this.activeMacros.fat) {
+            display += `${calories} fat`;
+            if (this.activeMacros.protein) {
+                display += ' | ';
+            }
+        }
+        if (this.activeMacros.protein) {
+            display += `${protein} prot`;
+        }
+        display += ')';
+        return display;
+    }
+
     showEditing(mealIndex: number, foodIndex: number) {
         if (this.editingIndex.mealIndex == mealIndex && this.editingIndex.foodIndex == foodIndex) {
             return true;

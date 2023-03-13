@@ -105,3 +105,9 @@
     display: inline-block;
     overflow-y: hidden;
 }
+
+.meal-info {
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 70%;
+}
