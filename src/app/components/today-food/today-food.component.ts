@@ -48,10 +48,10 @@ export class TodayFoodComponent {
         for (let food of mealsToCalc.food) {
             const loadedFood = this.existingFood[food.id];
             const servingPortion = food.quantity / loadedFood.servingSize;
-            calories += loadedFood.caloriesPerServing * servingPortion;
-            carbs += loadedFood.carbsPerServing * servingPortion;
-            fat += loadedFood.fatPerServing * servingPortion;
-            protein += loadedFood.proteinPerServing *servingPortion;
+            calories += Math.round(loadedFood.caloriesPerServing * servingPortion * 10) / 10;
+            carbs += Math.round(loadedFood.carbsPerServing * servingPortion * 10) / 10;
+            fat += Math.round(loadedFood.fatPerServing * servingPortion * 10) / 10;
+            protein += Math.round(loadedFood.proteinPerServing *servingPortion * 10) / 10;
         }
 
         let display = '(';
