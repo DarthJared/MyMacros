@@ -48,33 +48,33 @@ export class TodayFoodComponent {
         for (let food of mealsToCalc.food) {
             const loadedFood = this.existingFood[food.id];
             const servingPortion = food.quantity / loadedFood.servingSize;
-            calories += Math.round(loadedFood.caloriesPerServing * servingPortion * 10) / 10;
-            carbs += Math.round(loadedFood.carbsPerServing * servingPortion * 10) / 10;
-            fat += Math.round(loadedFood.fatPerServing * servingPortion * 10) / 10;
-            protein += Math.round(loadedFood.proteinPerServing *servingPortion * 10) / 10;
+            calories += loadedFood.caloriesPerServing * servingPortion;
+            carbs += loadedFood.carbsPerServing * servingPortion;
+            fat += loadedFood.fatPerServing * servingPortion;
+            protein += loadedFood.proteinPerServing *servingPortion;
         }
 
         let display = '(';
         if (this.activeMacros.calories) {
-            display += `${calories} cal`;
+            display += `${Math.round(calories * 10) / 10} cal`;
             if (this.activeMacros.carbs || this.activeMacros.fat || this.activeMacros.protein) {
                 display += ' | ';
             }
         }
         if (this.activeMacros.carbs) {
-            display += `${calories} carb`;
+            display += `${Math.round(carbs * 10) / 10} carb`;
             if (this.activeMacros.fat || this.activeMacros.protein) {
                 display += ' | ';
             }
         }
         if (this.activeMacros.fat) {
-            display += `${calories} fat`;
+            display += `${Math.round(fat * 10) / 10} fat`;
             if (this.activeMacros.protein) {
                 display += ' | ';
             }
         }
         if (this.activeMacros.protein) {
-            display += `${protein} prot`;
+            display += `${Math.round(protein * 10) / 10} prot`;
         }
         display += ')';
         return display;
