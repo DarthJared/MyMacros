@@ -157,7 +157,9 @@ export class SettingsComponent {
                 });
                 break;
             case 'foods':
-                loaded = JSON.stringify(this.storageService.getSavedFoods())
+                this.storageService.getSavedFoods().subscribe((loaded) => {
+                  this.importValue = JSON.stringify(loaded);
+                });
                 break;
         }
         this.importValue = loaded;

@@ -334,19 +334,19 @@ export class MainComponent {
     importData(importInfo: { type: string, value: any }) {
         switch(importInfo.type) {
             case 'macros':
-                this.storageService.storeMacros(JSON.parse(importInfo.value));
+                this.storageService.storeMacros(JSON.parse(importInfo.value)).subscribe();
                 break;
             case 'goals':
-                this.storageService.saveAllGoals(JSON.parse(importInfo.value));
+                this.storageService.saveAllGoals(JSON.parse(importInfo.value)).subscribe();
                 break;
             case 'meals':
-                this.storageService.saveAllMeals(JSON.parse(importInfo.value));
+                this.storageService.saveAllMeals(JSON.parse(importInfo.value)).subscribe();
                 break;
             case 'weekGoals':
-                this.storageService.saveWeekGoals(JSON.parse(importInfo.value));
+                this.storageService.saveWeekGoals(JSON.parse(importInfo.value)).subscribe();
                 break;
             case 'foods':
-                this.storageService.updateFoods(JSON.parse(importInfo.value));
+                this.storageService.updateFoods(JSON.parse(importInfo.value)).subscribe();
                 break;
         }
 
