@@ -1,5 +1,5 @@
-<header 
-    id="header" 
+<header
+    id="header"
     (settings)="openSettings()">
 </header>
 
@@ -8,8 +8,8 @@
     [selectedDate]="observedDay | stringToDate"
     (dateChanged)="updateDate($event)">
 </date-selector>
-<today-food 
-    id="today-food" 
+<today-food
+    id="today-food"
     [food]="daysMeals"
     [existingFood]="storedFoods"
     [activeMacros]="activeMacros"
@@ -19,34 +19,34 @@
     (addFoodToMeal)="displayFoodForMeal($event)">
 </today-food>
 
-<add-button 
-    id="adder" 
+<add-button
+    id="adder"
     (add)="displayAdderChooser()">
 </add-button>
-<adder-modal 
-    id="adder-modal" 
-    *ngIf="adderModalShowing" 
-    (close)="closeAllModals()" 
+<adder-modal
+    id="adder-modal"
+    *ngIf="adderModalShowing"
+    (close)="closeAllModals()"
     (start)="startMeal($event)">
 </adder-modal>
-<adder-chooser 
-    id="adder-chooser" 
-    *ngIf="adderChooserShowing" 
-    (close)="closeAllModals()" 
+<adder-chooser
+    id="adder-chooser"
+    *ngIf="adderChooserShowing"
+    (close)="closeAllModals()"
     (meal)="displayAdderModal()">
 </adder-chooser>
-<food-adder 
-    id="food-adder" 
-    *ngIf="adderFoodShowing" 
-    (close)="closeAllModals()" 
+<food-adder
+    id="food-adder"
+    *ngIf="adderFoodShowing"
+    (close)="closeAllModals()"
     (food)="addFood($event)"
     (store)="storeNewFood($event)"
     (updateFoods)="updateFoods($event)"
     [existingFoods]="storedFoods"
     [activeMacros]="activeMacros">
 </food-adder>
-<goal-editor 
-    id="goal-editor" 
+<goal-editor
+    id="goal-editor"
     *ngIf="goalEditorShowing"
     (close)="closeAllModals()"
     (updated)="updateGoal($event)"
@@ -57,7 +57,6 @@
     id="settings"
     *ngIf="settingsShowing"
     (close)="closeAllModals()"
-    (clear)="settingsClear($event)"
     (import)="importData($event)"
     [macrosSelected]="activeMacros">
 </settings>
@@ -73,14 +72,14 @@
 </confirm-modal>
 
 
-<footer 
-    id="footer" 
-    [caloriesGoal]="caloriesGoal" 
-    [carbsGoal]="carbsGoal" 
+<footer
+    id="footer"
+    [caloriesGoal]="caloriesGoal"
+    [carbsGoal]="carbsGoal"
     [fatGoal]="fatGoal"
-    [proteinGoal]="proteinGoal" 
-    [caloriesRemaining]="caloriesLeft" 
-    [carbsRemaining]="carbsLeft" 
+    [proteinGoal]="proteinGoal"
+    [caloriesRemaining]="caloriesLeft"
+    [carbsRemaining]="carbsLeft"
     [fatRemaining]="fatLeft"
     [proteinRemaining]="proteinLeft"
     [activeMacros]="activeMacros"

@@ -21,7 +21,7 @@ export class TodayFoodComponent {
         fat: false,
         protein: true
     };
-    @Output() removeMeal = new EventEmitter<number>();
+    @Output() removeMeal = new EventEmitter<number>();
     @Output() removeFood = new EventEmitter<{mealIndex: number, foodIndex: number}>();
     @Output() updateFood = new EventEmitter<any>();
     @Output() addFoodToMeal = new EventEmitter<number>();
@@ -47,11 +47,13 @@ export class TodayFoodComponent {
 
         for (let food of mealsToCalc.food) {
             const loadedFood = this.existingFood[food.id];
-            const servingPortion = food.quantity / loadedFood.servingSize;
-            calories += loadedFood.caloriesPerServing * servingPortion;
-            carbs += loadedFood.carbsPerServing * servingPortion;
-            fat += loadedFood.fatPerServing * servingPortion;
-            protein += loadedFood.proteinPerServing *servingPortion;
+            if (loadedFood) {
+              const servingPortion = food.quantity / loadedFood.servingSize;
+              calories += loadedFood.caloriesPerServing * servingPortion;
+              carbs += loadedFood.carbsPerServing * servingPortion;
+              fat += loadedFood.fatPerServing * servingPortion;
+              protein += loadedFood.proteinPerServing * servingPortion;
+            }
         }
 
         let display = '(';
@@ -100,7 +102,7 @@ export class TodayFoodComponent {
         this.editingIndex.mealIndex = mealIndex;
         this.editingIndex.foodIndex = foodIndex;
         this.expandedIndexes = {};
-        
+
         event.stopPropagation();
     }
 

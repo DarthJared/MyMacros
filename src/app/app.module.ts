@@ -23,6 +23,7 @@ import { RoundOnePlacePipe } from './pipes/round-one-place.pipe';
 import { DateSelectorComponent } from './components/date-selector/date-selector.component';
 import { StringToDatePipe } from './pipes/string-to-date.pipe';
 import { DateToStringPipe } from './pipes/date-to-string.pipe';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -50,9 +51,11 @@ import { DateToStringPipe } from './pipes/date-to-string.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

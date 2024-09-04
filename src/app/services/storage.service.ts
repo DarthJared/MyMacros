@@ -1,143 +1,162 @@
 import { Injectable } from '@angular/core';
+import {CrudService} from "./crud.service";
+import {map, mergeMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() { }
+  constructor(private crudService: CrudService) { }
 
   public saveMeals(meals: any) {
-    let allMeals = this.getMeals();
-    allMeals[meals.date] = meals.meals;
-    this.saveAllMeals(allMeals);
+    return this.getMeals().pipe(
+      mergeMap((allMealsData: any) => {
+        let allMeals = allMealsData.items[0].meals;
+        allMeals[meals.date] = meals.meals;
+        return this.saveAllMeals(allMeals);
+      })
+    );
   }
 
   public saveAllMeals(meals: any) {
-    localStorage.setItem('meals', JSON.stringify(meals));
+    return this.crudService.updateMeals(meals);
   }
 
   public getMeals() {
-    let meals: any = localStorage.getItem('meals');
-    if (meals) {
-        return JSON.parse(meals);
-    }
-    return {};
+    return this.crudService.getMeals();
   }
 
   public getDaysMeals(date: string) {
-    let allMeals = this.getMeals();
-    if (allMeals) {
-        let daysMeals = allMeals[date];
-        if (daysMeals) {
+    return this.getMeals().pipe(
+      map((allMealsData: any) => {
+        let allMeals = allMealsData.items[0].meals;
+        if (allMeals) {
+          let daysMeals = allMeals[date];
+          if (daysMeals) {
             return daysMeals;
+          }
         }
-    }
-    return [];
+        return [];
+      })
+    );
   }
 
   public saveGoals(goals: any) {
-    let allGoals = this.getGoals();
-    allGoals[goals.date] = {
-        calories: goals.calories,
-        carbs: goals.carbs,
-        fat: goals.fat,
-        protein: goals.protein
-    };
-    this.saveAllGoals(allGoals);
+    return this.getGoals().pipe(
+      mergeMap((allGoalsData: any) => {
+        let allGoals = allGoalsData.items[0].goals;
+        allGoals[goals.date] = {
+          calories: goals.calories,
+          carbs: goals.carbs,
+          fat: goals.fat,
+          protein: goals.protein
+        };
+        return this.saveAllGoals(allGoals);
+      })
+    );
   }
 
   public saveAllGoals(goals: any) {
-    localStorage.setItem('goals', JSON.stringify(goals));
+    return this.crudService.updateGoals(goals)
   }
 
   public getGoals() {
-    let goals: any = localStorage.getItem('goals');
-    if (goals) {
-        return JSON.parse(goals);
-    }
-    return {};
+    return this.crudService.getGoals().pipe(
+      map((goals) => {
+        return goals ?? {};
+      })
+    );
   }
 
   public getDaysGoals(date: string) {
-    let allGoals = this.getGoals();
-    if (allGoals) {;
-        let goals = allGoals[date];
-        if (goals) {
+    return this.getGoals().pipe(
+      map((allGoalsData: any) => {
+        let allGoals = allGoalsData.items[0].goals;
+        if (allGoals) {
+          let goals = allGoals[date];
+          if (goals) {
             return goals;
+          }
         }
-    }
-    return null;
+        return null;
+      })
+    );
   }
 
   public saveWeekGoals(weekGoals: any) {
-    localStorage.setItem('weekGoals', JSON.stringify(weekGoals));
+    return this.crudService.updateWeekGoals(weekGoals);
   }
 
   public getWeekGoals() {
-    const weekGoals = localStorage.getItem('weekGoals');
-    if (weekGoals) {
-        return JSON.parse(weekGoals);
-    }
-    return null;
+    return this.crudService.getWeekGoals().pipe(
+      map((weekGoalsData: any) => {
+        let weekGoals = weekGoalsData.items[0].weekGoals;
+
+        return weekGoals ?? null;
+      })
+    );
   }
 
   public getDefaultGoals(dateString: string) {
-    const weekGoals = this.getWeekGoals();
-    if (weekGoals) {
-        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday','Saturday'];
-        const today = new Date(dateString);
-        const todayStr = days[today.getDay()];
-        return weekGoals[todayStr];
-    }
-    return {
-        calories: 0,
-        carbs: 0,
-        fat: 0,
-        protein: 0
-    }
+    return this.getWeekGoals().pipe(
+      map((weekGoals: any) => {
+        if (weekGoals) {
+          const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+          const today = new Date(dateString);
+          const todayStr = days[today.getDay()];
+          return weekGoals[todayStr];
+        }
+        return {
+          calories: 0,
+          carbs: 0,
+          fat: 0,
+          protein: 0
+        }
+      })
+    );
   }
 
   public getSavedFoods() {
-    const foods = localStorage.getItem('foods');
-    if (foods) {
-        return JSON.parse(foods);
-    }
-    return null;
+    return this.crudService.getFoods().pipe(
+      map((foodsData: any) => {
+        const foods = foodsData.items[0].foods;
+        return foods ?? null;
+      })
+    );
   }
 
   public storeNewFood(food: StorableFood) {
-    let foods = this.getSavedFoods();
-    if (!foods) {
-        foods = {
+    return this.getSavedFoods().pipe(
+      mergeMap((foods) => {
+        if (!foods) {
+          foods = {
             [food.id]: food
-        };
-    }
-    else {
-        foods[food.id] = food;
-    }
-    localStorage.setItem('foods', JSON.stringify(foods));
+          };
+        } else {
+          foods[food.id] = food;
+        }
+        return this.updateFoods(foods);
+      })
+    );
   }
 
   public updateFoods(foods: { [id: number]: StorableFood }) {
-    localStorage.setItem('foods', JSON.stringify(foods));
+    return this.crudService.updateFoods(foods);
   }
 
   public getMacros() {
-    const macros = localStorage.getItem('macros');
-    return macros ? JSON.parse(macros) : null;
+    return this.crudService.getMacros().pipe(
+      map((macrosData: any) => {
+        const macros = macrosData.items[0].macros;
+        return macros ?? null;
+      })
+    );
+
   }
 
   public storeMacros(macros: any) {
-    localStorage.setItem('macros', JSON.stringify(macros));
-  }
-
-  public clearItem(key: string) {
-    localStorage.removeItem(key);
-  }
-
-  public clearData() {
-    localStorage.clear();
+    return this.crudService.updateMacros(macros);
   }
 }
 

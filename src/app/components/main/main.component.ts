@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
+import {forkJoin} from "rxjs";
 
 type Food = {
     name: string
@@ -94,7 +95,7 @@ export class MainComponent {
         fat: false,
         protein: true
     };
-    
+
     constructor(private storageService: StorageService) {
         this.loadStoredFoods();
 
@@ -108,54 +109,55 @@ export class MainComponent {
     }
 
     loadActiveMacros() {
-        const loadedMacros = this.storageService.getMacros();
-        if (loadedMacros) {
+        this.storageService.getMacros().subscribe((loadedMacros) => {
+          if (loadedMacros) {
             this.activeMacros = loadedMacros;
-        }
-        else {
+          } else {
             this.activeMacros = {
-                calories: true,
-                carbs: true,
-                fat: false,
-                protein: true
+              calories: true,
+              carbs: true,
+              fat: false,
+              protein: true
             };
-        }
+          }
+        });
     }
 
     loadMeals() {
-        let todaysMeals = this.storageService.getDaysMeals(this.observedDay)
-        
-        this.daysMeals = {
+        this.storageService.getDaysMeals(this.observedDay).subscribe((todaysMeals) => {
+          this.daysMeals = {
             date: this.observedDay,
             meals: todaysMeals
-        }
+          }
+        });
     }
 
     updateDaysGoals() {
-        let goalInfo = this.storageService.getDaysGoals(this.observedDay);
-        if (!goalInfo) {
-            goalInfo = this.storageService.getDefaultGoals(this.observedDay);
-        }
-
-        this.caloriesGoal = goalInfo.calories;
-        this.carbsGoal = goalInfo.carbs;
-        this.fatGoal = goalInfo.fat;
-        this.proteinGoal = goalInfo.protein;
+      const daysGoals = this.storageService.getDaysGoals(this.observedDay);
+      const defaultGoals = this.storageService.getDefaultGoals(this.observedDay);
+      forkJoin([daysGoals, defaultGoals]).subscribe(([daysGoals, defaultGoals]) => {
+        this.caloriesGoal = daysGoals ? daysGoals.calories : defaultGoals.calories
+        this.carbsGoal = daysGoals ? daysGoals.carbs : defaultGoals.carbs;
+        this.fatGoal = daysGoals ? daysGoals.fat : defaultGoals.fat;
+        this.proteinGoal = daysGoals ? daysGoals.protein : defaultGoals.protein;
+      });
     }
 
     loadStoredFoods() {
-        this.storedFoods = this.storageService.getSavedFoods() ?? {};
+      this.storageService.getSavedFoods().subscribe((loadedFoods) => {
+        this.storedFoods = loadedFoods ?? {};
+      });
     }
 
     store() {
-        this.storageService.saveMeals(this.daysMeals);
+        this.storageService.saveMeals(this.daysMeals).subscribe();
         this.storageService.saveGoals({
             date: this.daysMeals.date,
             calories: this.caloriesGoal,
             carbs: this.carbsGoal,
             fat: this.fatGoal,
             protein: this.proteinGoal
-        });
+        }).subscribe();
     }
 
     updateRemaining() {
@@ -180,16 +182,6 @@ export class MainComponent {
         this.carbsLeft = carbsLeft;
         this.fatLeft = fatLeft;
         this.proteinLeft = proteinLeft;
-    }
-
-    updateGoals(goals: any) {
-        this.caloriesGoal = goals.calories;
-        this.carbsGoal = goals.carbs;
-        this.fatGoal = goals.fat;
-        this.proteinGoal = goals.protein;
-
-        this.updateRemaining();
-        this.store()
     }
 
     startMeal(meal: string) {
@@ -227,11 +219,6 @@ export class MainComponent {
 
     displayAdderChooser() {
         this.adderChooserShowing = true;
-    }
-
-    displayFood() {
-        this.closeAllModals()
-        this.adderFoodShowing = true;
     }
 
     displayFoodForMeal(mealIndex: number) {
@@ -277,7 +264,7 @@ export class MainComponent {
                 break;
             case 'Protein':
                 this.proteinGoal = goalInfo.goal;
-                break;                        
+                break;
         }
         this.updateRemaining();
         this.store();
@@ -312,9 +299,6 @@ export class MainComponent {
             case 'removeFood':
                 this.daysMeals.meals[eventInfo.context.mealIndex].food.splice(eventInfo.context.foodIndex, 1);
                 break;
-            case 'clearStorage':
-                this.clearConfirmed();
-                break;
         }
         this.updateRemaining();
         this.store();
@@ -322,8 +306,9 @@ export class MainComponent {
     }
 
     storeNewFood(newFood: any) {
-        this.storageService.storeNewFood(newFood);
+      this.storageService.storeNewFood(newFood).subscribe(() => {
         this.loadStoredFoods();
+      });
     }
 
     updateDate(date: Date) {
@@ -339,66 +324,11 @@ export class MainComponent {
         this.updateRemaining();
     }
 
-    settingsClear(context: string) {
-        this.confirmModalButtonText = 'Clear';
-        this.confirmModalMessage = 'Are you sure you want to clear this data?';
-        this.confirmModalActionKey = 'clearStorage';
-        this.confirmModalContext = context;
-        this.confirmModalShowing = true;
-    }
-
-    clearConfirmed() {
-        switch(this.confirmModalContext) {
-            case 'foodsMeals':
-                this.clearMealsData();
-                this.storageService.clearItem('foods'); 
-                break;
-            case 'meals':
-                this.clearMealsData();
-                break;
-            case 'goals':
-                this.clearGoalsData();
-                this.storageService.clearItem('goals');
-                this.storageService.clearItem('weekGoals');
-                break;
-            case 'macros':
-                this.storageService.clearItem('macros');
-                this.loadActiveMacros();
-                break;
-            case 'all':
-                this.clearMealsData();
-                this.clearGoalsData();
-                this.storageService.clearItem('goals');
-                this.storageService.clearData();
-                break;
-        }
-    }
-
-    clearGoalsData() {
-        this.caloriesGoal = 0;
-        this.carbsGoal = 0;
-        this.fatGoal = 0;
-        this.proteinGoal = 0;
-    }
-
-    clearMealsData() {
-        this.daysMeals = {
-            date: '01-01-1900',
-            meals: []
-        }
-        const today = new Date();
-        this.observedDay = today.toDateString();
-        this.storageService.clearItem('meals');
-        this.loadStoredFoods();
-        this.loadMeals();
-        this.updateDaysGoals();
-        this.updateRemaining();
-    }
-
     updateFoods(foods: any) {
-        this.storageService.updateFoods(foods);
-        this.loadStoredFoods();
-        this.updateRemaining();
+        this.storageService.updateFoods(foods).subscribe(() => {
+          this.loadStoredFoods();
+          this.updateRemaining();
+        });
     }
 
     importData(importInfo: { type: string, value: any }) {
@@ -427,5 +357,5 @@ export class MainComponent {
         this.updateRemaining();
 
         this.closeAllModals();
-    } 
+    }
 }

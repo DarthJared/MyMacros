@@ -33,7 +33,6 @@ type MacroSelection = {
 })
 export class SettingsComponent {
     @Output() close = new EventEmitter<string>();
-    @Output() clear = new EventEmitter<string>();
     @Output() import = new EventEmitter<{ type: string, value: any }>();
 
     @Input() macrosSelected: MacroSelection = {
@@ -43,70 +42,70 @@ export class SettingsComponent {
         protein: true
     };
 
-    weekPlan: WeekPlan;
+    weekPlan: WeekPlan = {
+      Sunday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Monday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Tuesday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Wednesday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Thursday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Friday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+      Saturday: {
+        calories: 0,
+        carbs: 0,
+        fat: 0,
+        protein: 0
+      },
+    }
     activeTab: string = 'Defaults';
     importType: string = 'macros';
-    importValue: string;
+    importValue: string = '';
 
     constructor(private storageService: StorageService) {
-        const loadedMacros = this.storageService.getMacros();
-        this.importValue = JSON.stringify(loadedMacros);
+        this.storageService.getMacros().subscribe((loadedMacros) => {
+          this.importValue = JSON.stringify(loadedMacros);
+        });
 
-        const loadedWeekPlan = this.storageService.getWeekGoals()
-        if (loadedWeekPlan) {
+        this.storageService.getWeekGoals().subscribe((loadedWeekPlan: WeekPlan) => {
+          if (loadedWeekPlan) {
             this.weekPlan = loadedWeekPlan;
-        }
-        else {
-            this.weekPlan = {
-                Sunday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Monday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Tuesday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Wednesday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Thursday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Friday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-                Saturday: {
-                    calories: 0,
-                    carbs: 0,
-                    fat: 0,
-                    protein: 0
-                },
-            }
-        }
+          }
+        });
     }
 
     saveMacros() {
-        this.storageService.storeMacros(this.macrosSelected);
+      this.storageService.storeMacros(this.macrosSelected).subscribe(() => {
         this.close.emit('close');
+      });
     }
 
     setActiveTab(tabName: string) {
@@ -114,8 +113,9 @@ export class SettingsComponent {
     }
 
     saveGoals() {
-        this.storageService.saveWeekGoals(this.weekPlan);
-        this.closeModal();
+        this.storageService.saveWeekGoals(this.weekPlan).subscribe(() => {
+          this.closeModal();
+        });
     }
 
     closeModal() {
@@ -124,26 +124,6 @@ export class SettingsComponent {
 
     doNothing(event: any) {
         event.stopPropagation();
-    }    
-
-    clearFoodsMeals() {
-        this.clear.emit('foodsMeals');
-    }
-
-    clearMeals() {
-        this.clear.emit('meals');
-    }
-
-    clearGoals() {
-        this.clear.emit('goals');
-    }
-
-    clearMacros() {
-        this.clear.emit('macros');
-    }
-
-    clearAll() {
-        this.clear.emit('all');
     }
 
     importData() {
@@ -157,16 +137,24 @@ export class SettingsComponent {
         let loaded = '';
         switch(toLoadEvent.target.value) {
             case 'macros':
-                loaded = JSON.stringify(this.storageService.getMacros());
+                this.storageService.getMacros().subscribe((loaded) => {
+                    this.importValue = JSON.stringify(loaded);
+                });
                 break;
             case 'goals':
-                loaded = JSON.stringify(this.storageService.getGoals());
+                this.storageService.getGoals().subscribe((loaded) => {
+                    this.importValue = JSON.stringify(loaded.items[0].goals);
+                });
                 break;
             case 'meals':
-                loaded = JSON.stringify(this.storageService.getMeals());
+                this.storageService.getMeals().subscribe((loaded) => {
+                    this.importValue = JSON.stringify(loaded.items[0].meals);
+                });
                 break;
             case 'weekGoals':
-                loaded = JSON.stringify(this.storageService.getWeekGoals());
+                this.storageService.getWeekGoals().subscribe((loaded) => {
+                  this.importValue = JSON.stringify(loaded);
+                });
                 break;
             case 'foods':
                 loaded = JSON.stringify(this.storageService.getSavedFoods())
