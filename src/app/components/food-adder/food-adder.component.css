@@ -51,7 +51,7 @@
     background-color: #444444;
 }
 
-#new-food-button { 
+#new-food-button {
     color: #69B1F5;
 }
 
@@ -73,7 +73,7 @@
     margin-left: 25px;
 }
 
-.stored-food { 
+.stored-food {
     margin-bottom: 5px;
     cursor: pointer;
 }
@@ -89,7 +89,7 @@
 }
 
 #existing-foods {
-    max-height: 200px;
+    max-height: 275px;
     overflow-y: auto;
 }
 
@@ -99,7 +99,7 @@
     margin-bottom: 15px;
 }
 
-#new-food-info { 
+#new-food-info {
     margin-top: 20px;
     margin-bottom: 10px;
 }
@@ -136,6 +136,17 @@
     top: 164px;
 }
 
+#foods-search-button {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: 164px;
+}
+
+#foods-search-input {
+  width: calc(100% - 10px);
+  margin-bottom: 20px;
+}
+
 .serving-size-input {
     width: 45px;
 }
@@ -151,6 +162,15 @@
 .delete-food-icon {
     margin-bottom: -6px;
     cursor: pointer;
+}
+
+.edit-food-icon {
+  cursor: pointer;
+}
+
+.search-food-icon {
+  margin-right: 18px;
+  cursor: pointer;
 }
 
 .food-name {

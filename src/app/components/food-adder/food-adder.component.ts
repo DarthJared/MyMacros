@@ -29,7 +29,16 @@ export class FoodAdderComponent {
     @Output() store = new EventEmitter<StorableFood>();
     @Output() updateFoods = new EventEmitter<{ [id: number]: StorableFood }>();
 
-    @Input() existingFoods: { [id: number]: StorableFood } = {};
+    _existingFoods: { [id: number]: StorableFood } = {};
+    get existingFoods() {
+      return this._existingFoods;
+    }
+    @Input() set existingFoods (foodsVal: { [id: number]: StorableFood }) {
+      this._existingFoods = foodsVal;
+      this.updateFoodsList();
+    }
+
+    filteredFoods: { [id: number]: StorableFood } = {};
     @Input() activeMacros: MacroSelection = {
         calories: true,
         carbs: true,
@@ -53,8 +62,21 @@ export class FoodAdderComponent {
     fat: number = 0;
     protein: number = 0;
 
-    constructor(private ref: ChangeDetectorRef) {
+    foodSearch: string = '';
+    showFoodSearch: boolean = false;
 
+    constructor() {
+      this.updateFoodsList();
+    }
+
+    updateFoodsList() {
+        this.filteredFoods = {};
+
+        for (let foodId in this.existingFoods) {
+            if (this.existingFoods[foodId].name.toLowerCase().includes(this.foodSearch.toLowerCase())) {
+                this.filteredFoods[foodId] = this.existingFoods[foodId];
+            }
+        }
     }
 
     closeModal() {
@@ -121,6 +143,11 @@ export class FoodAdderComponent {
         this.newFoodShowing = false;
         this.selectedFoodId = 0;
         this.foodEditing = true;
+    }
+
+    toggleSearchFoods() {
+      this.showFoodSearch = !this.showFoodSearch;
+      this.foodSearch = '';
     }
 
     saveFoodEdits() {

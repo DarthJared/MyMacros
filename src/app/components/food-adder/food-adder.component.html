@@ -1,27 +1,38 @@
 <div id="background" (click)="closeModal()">
     <div id="foreground" (click)="doNothing($event)">
         <div class="modal-title">Add A New Food</div>
-        <div class="modal-content">            
+        <div class="modal-content">
+            <div id="foods-search-button" (click)="toggleSearchFoods()">
+              <mat-icon
+                aria-hidden="false"
+                aria-label="search food"
+                fontIcon="search"
+                class="search-food-icon">
+              </mat-icon>
+            </div>
             <div id="existing-food-title">
                 My Foods
             </div>
             <div id="foods-edit-button" (click)="editFoods()" *ngIf="!foodEditing">
-                <mat-icon 
-                    aria-hidden="false" 
-                    aria-label="edit food" 
-                    fontIcon="edit" 
-                    class="edit-food-icon">
-                </mat-icon>
+              <mat-icon
+                aria-hidden="false"
+                aria-label="edit food"
+                fontIcon="edit"
+                class="edit-food-icon">
+              </mat-icon>
+            </div>
+            <div *ngIf="showFoodSearch" id="foods-search">
+              <input type="text" id="foods-search-input" [(ngModel)]="foodSearch" (ngModelChange)="updateFoodsList()" />
             </div>
             <div id="existing-foods">
-                <div *ngFor="let food of existingFoods | sortByOrder" class="stored-food">
+                <div *ngFor="let food of filteredFoods | sortByOrder" class="stored-food">
                     <div (click)="foodClicked(food.id)">
                         <span class="food-remover" *ngIf="foodEditing">
-                            <mat-icon 
-                                aria-hidden="false" 
-                                aria-label="delete food" 
-                                fontIcon="delete" 
-                                class="delete-food-icon" 
+                            <mat-icon
+                                aria-hidden="false"
+                                aria-label="delete food"
+                                fontIcon="delete"
+                                class="delete-food-icon"
                                 (click)="deleteFood(food.id)">
                             </mat-icon>
                         </span>
@@ -39,15 +50,15 @@
                             <ng-container *ngIf="activeMacros.calories || foodEditing">calories<ng-container *ngIf="foodEditing || activeMacros.carbs || activeMacros.fat || activeMacros.protein">,</ng-container></ng-container>
                             <br *ngIf="foodEditing">
                             <span class="food-info-num" *ngIf="!foodEditing && activeMacros.carbs">{{food.carbsPerServing}}</span>
-                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.carbsPerServing"> 
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.carbsPerServing">
                             <ng-container *ngIf="activeMacros.carbs || foodEditing">carbs<ng-container *ngIf="foodEditing || activeMacros.fat || activeMacros.protein">,</ng-container></ng-container>
                             <br *ngIf="foodEditing">
                             <span class="food-info-num" *ngIf="!foodEditing && activeMacros.fat">{{food.fatPerServing}}</span>
-                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.fatPerServing"> 
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.fatPerServing">
                             <ng-container *ngIf="activeMacros.fat || foodEditing">fat<ng-container *ngIf="foodEditing || activeMacros.protein">,</ng-container></ng-container>
                             <br *ngIf="foodEditing">
                             <span class="food-info-num" *ngIf="!foodEditing && activeMacros.protein">{{food.proteinPerServing}}</span>
-                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.proteinPerServing"> 
+                            <input type="number" class="food-num edit-num-input" *ngIf="foodEditing" [(ngModel)]="food.proteinPerServing">
                             <ng-container *ngIf="activeMacros.protein || foodEditing">protein</ng-container>
                         </span>
                     </div>
@@ -55,10 +66,10 @@
                         <input type="number" class="food-num quantity-num" [ngModel]="food.servingSize" (change)="quantityChanged($event)">
                         <span class="food-serving-size">{{food.servingUnits}}</span>
                         <div class="action-button" (click)="addFood(food.id)">
-                            <mat-icon 
-                                aria-hidden="false" 
-                                aria-label="add food" 
-                                fontIcon="done" 
+                            <mat-icon
+                                aria-hidden="false"
+                                aria-label="add food"
+                                fontIcon="done"
                                 class="add-food-icon inline-adder">
                             </mat-icon>
                         </div>
@@ -93,18 +104,18 @@
                 </div>
                 <div class="action-button-wrapper">
                     <div class="action-button" (click)="storeFood()">
-                        <mat-icon 
-                            aria-hidden="false" 
-                            aria-label="add food" 
-                            fontIcon="done" 
+                        <mat-icon
+                            aria-hidden="false"
+                            aria-label="add food"
+                            fontIcon="done"
                             class="add-food-icon">
                         </mat-icon>
                     </div>
                     <div class="action-button" (click)="cancelNewFood()">
-                        <mat-icon 
-                            aria-hidden="false" 
-                            aria-label="cancel add food" 
-                            fontIcon="close" 
+                        <mat-icon
+                            aria-hidden="false"
+                            aria-label="cancel add food"
+                            fontIcon="close"
                             class="cancel-icon">
                         </mat-icon>
                     </div>
@@ -119,18 +130,18 @@
                 Add New Food
             </div>
             <div class="action-button" (click)="saveFoodEdits()" *ngIf="foodEditing">
-                <mat-icon 
-                    aria-hidden="false" 
-                    aria-label="save-food-edits" 
-                    fontIcon="done" 
+                <mat-icon
+                    aria-hidden="false"
+                    aria-label="save-food-edits"
+                    fontIcon="done"
                     class="add-food-icon">
                 </mat-icon>
             </div>
             <div class="action-button" (click)="cancelEditing()" *ngIf="foodEditing">
-                <mat-icon 
-                    aria-hidden="false" 
-                    aria-label="cancel update" 
-                    fontIcon="close" 
+                <mat-icon
+                    aria-hidden="false"
+                    aria-label="cancel update"
+                    fontIcon="close"
                     class="cancel-icon">
                 </mat-icon>
             </div>
