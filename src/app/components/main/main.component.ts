@@ -129,6 +129,8 @@ export class MainComponent {
             date: this.observedDay,
             meals: todaysMeals
           }
+
+          this.updateDaysGoals();
         });
     }
 
@@ -140,6 +142,8 @@ export class MainComponent {
         this.carbsGoal = daysGoals ? daysGoals.carbs : defaultGoals.carbs;
         this.fatGoal = daysGoals ? daysGoals.fat : defaultGoals.fat;
         this.proteinGoal = daysGoals ? daysGoals.protein : defaultGoals.protein;
+
+        this.updateRemaining();
       });
     }
 
@@ -314,8 +318,6 @@ export class MainComponent {
     updateDate(date: Date) {
         this.observedDay = date.toDateString();
         this.loadMeals();
-        this.updateDaysGoals();
-        this.updateRemaining();
     }
 
     updateFood(updatedMeals: DaysMeals) {
